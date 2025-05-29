@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7E778C33-4D4D-4572-B1EC-7D1D8D78EC5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Domain", "Sofos2ToDatawarehouse.Domain\Sofos2ToDatawarehouse.Domain.csproj", "{B097AC35-56CC-4925-93AC-5FE04752A1B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extractor", "Extractor", "{2B41A9BC-62C3-4272-A15A-66FF3D9C6CB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{AC03BB8B-0483-46D3-A80D-DF5FD6A2AD10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounting", "Accounting", "{E01E6F33-2302-49DC-B7F6-643D0D86A574}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventory", "Inventory", "{83D188DA-DD05-4EFB-81CF-7A7892DAF544}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Accounting", "Sofos2ToDatawarehouse.Extrator.Accounting\Sofos2ToDatawarehouse.Extractor.Accounting.csproj", "{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Inventory", "Sofos2ToDatawarehouse.Extractor.Inventory\Sofos2ToDatawarehouse.Extractor.Inventory.csproj", "{E3B0770B-83D0-424A-B795-28C4D8DEB149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Sales", "Sofos2ToDatawarehouse.Extractor.Sales\Sofos2ToDatawarehouse.Extractor.Sales.csproj", "{C53EB571-E0F2-4BB0-9958-B5703623998D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{07F2FCEA-3867-4B2E-B6FC-412C6E5CEDBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Infrastructure", "Sofos2ToDatawarehouse.Infrastructure\Sofos2ToDatawarehouse.Infrastructure.csproj", "{41A6C943-0A04-4AA8-B0C8-8D2F9727E238}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sender", "Sender", "{BDB2EF34-8498-4AD4-B252-137280B986DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountingInventorySales", "AccountingInventorySales", "{E40EF92A-9E9C-4F32-913D-6A2638C1DE8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.AccountingInventorySales", "Sofos2.Sender.AccountingInventorySales\Sofos2.Sender.AccountingInventorySales.csproj", "{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B097AC35-56CC-4925-93AC-5FE04752A1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B097AC35-56CC-4925-93AC-5FE04752A1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B097AC35-56CC-4925-93AC-5FE04752A1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B097AC35-56CC-4925-93AC-5FE04752A1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3B0770B-83D0-424A-B795-28C4D8DEB149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3B0770B-83D0-424A-B795-28C4D8DEB149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3B0770B-83D0-424A-B795-28C4D8DEB149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3B0770B-83D0-424A-B795-28C4D8DEB149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C53EB571-E0F2-4BB0-9958-B5703623998D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C53EB571-E0F2-4BB0-9958-B5703623998D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C53EB571-E0F2-4BB0-9958-B5703623998D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C53EB571-E0F2-4BB0-9958-B5703623998D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A6C943-0A04-4AA8-B0C8-8D2F9727E238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A6C943-0A04-4AA8-B0C8-8D2F9727E238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A6C943-0A04-4AA8-B0C8-8D2F9727E238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A6C943-0A04-4AA8-B0C8-8D2F9727E238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B097AC35-56CC-4925-93AC-5FE04752A1B6} = {7E778C33-4D4D-4572-B1EC-7D1D8D78EC5D}
+		{AC03BB8B-0483-46D3-A80D-DF5FD6A2AD10} = {2B41A9BC-62C3-4272-A15A-66FF3D9C6CB8}
+		{E01E6F33-2302-49DC-B7F6-643D0D86A574} = {2B41A9BC-62C3-4272-A15A-66FF3D9C6CB8}
+		{83D188DA-DD05-4EFB-81CF-7A7892DAF544} = {2B41A9BC-62C3-4272-A15A-66FF3D9C6CB8}
+		{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525} = {E01E6F33-2302-49DC-B7F6-643D0D86A574}
+		{E3B0770B-83D0-424A-B795-28C4D8DEB149} = {83D188DA-DD05-4EFB-81CF-7A7892DAF544}
+		{C53EB571-E0F2-4BB0-9958-B5703623998D} = {AC03BB8B-0483-46D3-A80D-DF5FD6A2AD10}
+		{41A6C943-0A04-4AA8-B0C8-8D2F9727E238} = {07F2FCEA-3867-4B2E-B6FC-412C6E5CEDBC}
+		{E40EF92A-9E9C-4F32-913D-6A2638C1DE8E} = {BDB2EF34-8498-4AD4-B252-137280B986DF}
+		{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9} = {E40EF92A-9E9C-4F32-913D-6A2638C1DE8E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B792FBC-B8C2-415D-8EAE-05D242D43842}
+	EndGlobalSection
+EndGlobal

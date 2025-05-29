@@ -1,0 +1,24 @@
+﻿
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sofos2ToDatawarehouse.Extractor.Sales.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="HOST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="DB_USERNAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="DB_PASSWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c3VwZXJ2aXNvcg==</Value>
+    </Setting>
+    <Setting Name="DROPSITE_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\DatawarehouseSyncher\Dropsite</Value>
+    </Setting>
+    <Setting Name="MAX_FETCH_LIMIT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="DB_NAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sofos2_jasper</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
