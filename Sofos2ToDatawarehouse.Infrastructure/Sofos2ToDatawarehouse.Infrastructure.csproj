@@ -83,13 +83,23 @@
     <Compile Include="Helper\AppSettingHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\Accounting\AccountingQuery.cs" />
+    <Compile Include="Queries\Inventory\ItemQuery.cs" />
     <Compile Include="Queries\Sales\ColaTransactionQuery.cs" />
+    <Compile Include="Repository\Accounting\AccountingRepository.cs" />
     <Compile Include="Repository\General\DropSiteModelRepository.cs" />
     <Compile Include="Repository\General\GlobalRepository.cs" />
     <Compile Include="Repository\General\LogRepository.cs" />
+    <Compile Include="Repository\Inventory\InventoryRepository.cs" />
+    <Compile Include="Repository\Logs\Accounting\AccountingLogRepository.cs" />
+    <Compile Include="Repository\Logs\Inventory\InventoryLogRepository.cs" />
     <Compile Include="Repository\Logs\Sales\ColaTransactionLogRepository.cs" />
     <Compile Include="Repository\Sales\SalesRepository.cs" />
     <Compile Include="Seeds\DataSourceSeeds.cs" />
+    <Compile Include="Services\Accounting\AccountingService.cs" />
+    <Compile Include="Services\Accounting\SIDCAPIAccountingService.cs" />
+    <Compile Include="Services\Inventory\InventoryService.cs" />
+    <Compile Include="Services\Inventory\SIDCAPIInventoryService.cs" />
     <Compile Include="Services\LogsEntity\ProcessLogsService.cs" />
     <Compile Include="Services\LogsEntity\SIDCAPILogsService.cs" />
     <Compile Include="Services\Sales\ColaTransactionService.cs" />
@@ -99,10 +109,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Queries\Accounting\" />
-    <Folder Include="Queries\Inventory\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Sofos2ToDatawarehouse.Domain\Sofos2ToDatawarehouse.Domain.csproj">
       <Project>{B097AC35-56CC-4925-93AC-5FE04752A1B6}</Project>

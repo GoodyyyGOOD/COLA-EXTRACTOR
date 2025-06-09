@@ -9,6 +9,7 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs
     public class SIDCAPIServiceSettings
     {
         public string AccountingBaseUrl { get; set; }
+        public string BaseUrl { get; set; }
         public string InventoryBaseUrl { get; set; }
         public string SalesBaseUrl { get; set; }
         public string IdentityUrl { get; set; }

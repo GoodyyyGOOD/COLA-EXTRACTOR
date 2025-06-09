@@ -14,8 +14,7 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs
         public string AuthUser { get; set; }
         public string AuthPassword { get; set; }
 
-        public string InventoryGIBulkUpSert { get; set; }
-        public string InventoryGRBulkUpSert { get; set; }
-        public string InventorySRBulkUpSert { get; set; }
+        public string InventoryBulkUpSert { get; set; }
+
     }
 }

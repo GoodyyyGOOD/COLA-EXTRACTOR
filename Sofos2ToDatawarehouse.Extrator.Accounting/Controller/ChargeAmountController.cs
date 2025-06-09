@@ -1,36 +1,37 @@
 ﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
-using Sofos2ToDatawarehouse.Infrastructure.Helper;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Accounting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sofos2ToDatawarehouse.Extrator.Accounting.Properties;
+using Sofos2ToDatawarehouse.Infrastructure.Helper;
 
-namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
+namespace Sofos2ToDatawarehouse.Extrator.Accounting.Controller
 {
-    public class ColaController
+    public class ChargeAmountController
     {
         #region Private Declaration
 
-        private string _module = "SALES";
+        private string _module = "ACCOUNTING";
 
-        private string dropSitePathExtractedSalesBase = string.Empty;
-        private string dropSitePathTransferredSalesBase = string.Empty;
-        private string dropSitePathLogsSalesBase = string.Empty;
+        private string dropSitePathExtractedAccountingBase = string.Empty;
+        private string dropSitePathTransferredAccountingBase = string.Empty;
+        private string dropSitePathLogsAccountingBase = string.Empty;
 
-        private SalesRepository _salesRepository;
-        private ColaTransactionLogRepository _colaTransactionLogRepository;
+        private AccountingRepository _accountingRepository;
+        private AccountingLogRepository _accountingLogRepository;
         private DropSiteModelRepository _dropSiteModelRepository;
 
         #endregion Private Declaration
 
-        public ColaController()
+        public ChargeAmountController()
         {
-            InitilizeDropSiteAndSalesRepositories();
+            InitilizeDropSiteAndAccountingRepositories();
             InitializeFolders();
         }
 
@@ -40,14 +41,13 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
         {
             try
             {
-                var lastIdLedgerLog = AppSettingHelper.GetSetting("lastIdLedgerLogSales");
+                var lastIdLedgerLog = AppSettingHelper.GetSetting("lastTransnumLogChargeAmount");
                 int lastIdlegerFromLog = Int32.Parse(lastIdLedgerLog);
+                var accountingHeader = _accountingRepository.GetAccountingData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
 
-                var salesHeader = _salesRepository.GetSalesData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
-
-                if (salesHeader != null)
+                if (accountingHeader != null)
                 {
-                    _colaTransactionLogRepository.ExportToJSONFile(salesHeader, _module, _salesRepository._company.BranchCode, dropSitePathExtractedSalesBase, dropSitePathLogsSalesBase);
+                    _accountingLogRepository.ExportToJSONFile(accountingHeader, _module, _accountingRepository._company.BranchCode, dropSitePathExtractedAccountingBase, dropSitePathLogsAccountingBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else
@@ -78,24 +78,24 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
         private void InitializeFolders()
         {
             string dropSitePathExtractedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
-            dropSitePathExtractedSalesBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathExtractedSalesBase))
-                Directory.CreateDirectory(dropSitePathExtractedSalesBase);
+            dropSitePathExtractedAccountingBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            if (!Directory.Exists(dropSitePathExtractedAccountingBase))
+                Directory.CreateDirectory(dropSitePathExtractedAccountingBase);
 
             string dropSitePathTransferedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
-            dropSitePathTransferredSalesBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathTransferredSalesBase))
-                Directory.CreateDirectory(dropSitePathTransferredSalesBase);
+            dropSitePathTransferredAccountingBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            if (!Directory.Exists(dropSitePathTransferredAccountingBase))
+                Directory.CreateDirectory(dropSitePathTransferredAccountingBase);
 
             string dropSitePathLogsBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
-            dropSitePathLogsSalesBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathLogsSalesBase))
-                Directory.CreateDirectory(dropSitePathLogsSalesBase);
+            dropSitePathLogsAccountingBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            if (!Directory.Exists(dropSitePathLogsAccountingBase))
+                Directory.CreateDirectory(dropSitePathLogsAccountingBase);
         }
 
 
 
-        private void InitilizeDropSiteAndSalesRepositories()
+        private void InitilizeDropSiteAndAccountingRepositories()
         {
             _dropSiteModelRepository = new DropSiteModelRepository()
             {
@@ -105,8 +105,8 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
                     QueryMaxFetchLimit = Convert.ToInt32(Properties.Settings.Default.MAX_FETCH_LIMIT)
                 }
             };
-            _salesRepository = new SalesRepository(SetDBSource());
-            _colaTransactionLogRepository = new ColaTransactionLogRepository();
+            _accountingRepository = new AccountingRepository(SetDBSource());
+            _accountingLogRepository = new AccountingLogRepository();
         }
 
         #endregion Private Methods

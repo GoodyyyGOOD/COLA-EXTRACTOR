@@ -27,9 +27,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sender", "Sender", "{BDB2EF34-8498-4AD4-B252-137280B986DF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountingInventorySales", "AccountingInventorySales", "{E40EF92A-9E9C-4F32-913D-6A2638C1DE8E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounting", "Accounting", "{E40EF92A-9E9C-4F32-913D-6A2638C1DE8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.AccountingInventorySales", "Sofos2.Sender.AccountingInventorySales\Sofos2.Sender.AccountingInventorySales.csproj", "{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.Accounting", "Sofos2.Sender.AccountingInventorySales\Sofos2.Sender.Accounting.csproj", "{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

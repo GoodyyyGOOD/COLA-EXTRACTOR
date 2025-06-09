@@ -28,28 +28,27 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
 
         #region GET
 
-        public List<ColaTransaction> GetSalesData(int maxFetchLimit, int startAtLedgerId)
+        public List<ColaTransaction> GetColaData(int maxFetchLimit, int startAtLedgerId)
         {
-            var salesHeader = GetSalesHeader(startAtLedgerId, maxFetchLimit);
+            var colaHeader = GetColaHeader(startAtLedgerId, maxFetchLimit);
 
-            if (salesHeader.Count == 0)
+            if (colaHeader.Count == 0)
                 return null;
 
-            int lastIdLedger = salesHeader.Min(o => o.IdLedger);
-            int untilIdLedger = salesHeader.Max(o => o.IdLedger);
+            int lastIdLedger = colaHeader.Min(o => o.TransNum);
+            int untilIdLedger = colaHeader.Max(o => o.TransNum);
             var colaDetails = GetColaItems(lastIdLedger, untilIdLedger);
-            var colaPayments = GetColaPayments(lastIdLedger, untilIdLedger);
 
-            salesHeader.ForEach(x =>
+            colaHeader.ForEach(x =>
             {
-                x.ColaTransactionDetail = colaDetails.Where(o => o.Reference == x.Reference).ToList();
-                x.ColaTransactionPayment = colaPayments.Where(o => o.Reference == x.Reference).ToList();
+                x.ColaTransactionDetail = colaDetails.Where(o => o.TransNum == x.TransNum).ToList();
+                
             });
 
-            return salesHeader;
+            return colaHeader;
         }
 
-        private List<ColaTransaction> GetSalesHeader(int lastIdLedger, int maxFetchLimit)
+        private List<ColaTransaction> GetColaHeader(int lastIdLedger, int maxFetchLimit)
         {
             try
             {
@@ -57,93 +56,66 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
 
                 var param = new Dictionary<string, object>()
                 {
-                    { "@lastIdLedger", lastIdLedger },
+                    { "@lastTransnum", lastIdLedger },
                     { "@limitTransaction", maxFetchLimit },
                 };
 
-                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.GetSalesQuery(ColaTransactionEnum.ColaHeader), param))
+                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.GetColaQuery(ColaTransactionEnum.ColaHeader), param))
                 {
                     using (var dr = conn.MySQLReader())
                     {
                         while (dr.Read())
                         {
-                            DateTime dateResult;
-                            bool lastUpdatedDateIsValid = DateTime.TryParseExact(dr["LastPaymentDate"].ToString(),
-                            "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateResult);
-                            DateTime? lastPaymentDate = null;
-
-                            if (lastUpdatedDateIsValid)
-                                lastPaymentDate = dateResult;
                             result.Add(new ColaTransaction
                             {
-                                IdLedger = Convert.ToInt32(dr["IdLedger"]),
-                                TransactionDate = Convert.ToDateTime(dr["TransDate"]),
-                                TransactionTypeCode = dr["TransType"].ToString(),
-                                Reference = dr["Reference"].ToString(),
-                                CrossReference = dr["CrossReference"].ToString(),
+                                TransNum = dr["transNum"] == DBNull.Value ? 0 : Convert.ToInt32(dr["transNum"]),
+                                TransDate = dr["transDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(dr["transDate"]),
+                                TransType = dr["transType"].ToString(),
+                                Reference = dr["reference"].ToString(),
+                                CrossReference = dr["crossreference"].ToString(),
+                                //IsNoEffectOnInventory = dr["NoEffectOnInventory"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoEffectOnInventory"]),
                                 IsNoEffectOnInventory = Convert.ToBoolean(dr["NoEffectOnInventory"]),
-                                IsAllowedNoEffectInventory = Convert.ToBoolean(dr["IsAllowedNoEffectInventory"]),
-                                CustomerTypeId = DBNull.Value == dr["CustomerType"] ? 0 : dr["CustomerType"].ToString() == "Member" ? 1 : 2,
-                                BusinessPartnerCode = dr["MemberId"].ToString(),
-                                BusinessPartnerName = dr["MemberName"].ToString(),
-                                EmployeeCode = dr["EmployeeCode"].ToString(),
-                                YoungCoopCode = dr["YoungCoopCode"].ToString(),
-                                YoungCoopName = dr["YoungCoopName"].ToString(),
-                                GLAccountCode = dr["AccountCode"].ToString(),
-                                GLAccountName = dr["AccountName"].ToString(),
-                                PaidToDate = DBNull.Value == dr["PaidToDate"] ? 0 : Convert.ToDecimal(dr["PaidToDate"]),
-                                Total = DBNull.Value == dr["Total"] ? 0 : Convert.ToDecimal(dr["Total"]),
-                                InterestComputed = DBNull.Value == dr["InterestComputed"] ? 0 : Convert.ToDecimal(dr["InterestComputed"]),// for check
-                                InterestPaid = DBNull.Value == dr["InterestPaid"] ? 0 : Convert.ToDecimal(dr["InterestPaid"]),
-                                InterestBalance = DBNull.Value == dr["InterestBalance"] ? 0 : Convert.ToDecimal(dr["InterestBalance"]),
-                                AmountTendered = DBNull.Value == dr["AmountTendered"] ? 0 : Convert.ToDecimal(dr["AmountTendered"]),
-                                IsCancelled = Convert.ToBoolean(dr["Cancelled"]),
-                                SalesStatusDescription = dr["Status"].ToString(),
-                                SalesStatusId = dr["Status"].ToString() == "CLOSED" ? 2 : 1,
-                                IsExtracted = Convert.ToBoolean(dr["IsExtracted"]),
-                                IsDuplicated = Convert.ToBoolean(dr["IsDuplicated"]),
-                                IsInsert = Convert.ToBoolean(dr["IsInsert"]),
-                                IsPromoWinner = Convert.ToBoolean(dr["IsPromoWinner"]),
-                                ColaReference = dr["ColaReference"].ToString(),
-                                Signatory = dr["Signatory"].ToString(),
-                                Remarks = dr["Remarks"].ToString(),
+                                CustomerType = dr["customerType"] == DBNull.Value ? 0 : dr["customerType"].ToString() == "Member" ? 1 : 2,
+                                MemberId = dr["memberId"].ToString(),
+                                MemberName = dr["memberName"].ToString(),
+                                EmployeeId = dr["employeeID"].ToString(),
+                                EmployeeName = dr["employeeName"].ToString(),
+                                YoungCoopId = dr["youngCoopID"].ToString(),
+                                YoungCoopName = dr["youngCoopName"].ToString(),
+                                AccountCode = dr["accountCode"].ToString(),
+                                AccountName = dr["accountName"].ToString(),
+                                PaidToDate = dr["paidToDate"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["paidToDate"]),
+                                Total = dr["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["Total"]),
+                                GrossTotal = dr["grossTotal"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["grossTotal"]),
+                                AmountTendered = dr["amountTendered"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["amountTendered"]),
+                                InterestPaid = dr["interestPaid"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["interestPaid"]),
+                                InterestBalance = dr["interestBalance"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["interestBalance"]),
+                                //Cancelled = dr["cancelled"] == DBNull.Value ? false : Convert.ToBoolean(dr["cancelled"]),
+                                Cancelled = Convert.ToBoolean(dr["cancelled"]),
+                                Status = dr["status"].ToString(),
+                                //Extracted = dr["extracted"] == DBNull.Value ? false : Convert.ToBoolean(dr["extracted"]),
+                                Extracted = dr["extracted"].ToString(),
+                                ColaReference = dr["colaReference"].ToString(),
+                                SegmentCode = dr["segmentCode"].ToString(),
+                                BusinessSegmentCode = dr["businessSegment"].ToString(),
+                                BranchCode = dr["branchCode"].ToString(),
+                                Signatory = dr["signatory"].ToString(),
+                                Remarks = dr["remarks"].ToString(),
+                                SystemDate = dr["systemDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(dr["systemDate"]),
                                 IdUser = dr["IdUser"].ToString(),
-                                LrBatch = dr["LrBatch"].ToString(),
-                                LrType = dr["LrType"].ToString(),
-                                SeniorDiscount = DBNull.Value == dr["SrDiscount"] ? 0 : Convert.ToDecimal(dr["SrDiscount"]),
-                                FeedsDiscount = DBNull.Value == dr["FeedsDiscount"] ? 0 : Convert.ToDecimal(dr["FeedsDiscount"]),
-                                SchoolSuppliesDiscount = DBNull.Value == dr["SchoolSuppliesDiscount"] ? 0 : Convert.ToDecimal(dr["SchoolSuppliesDiscount"]),
-                                Vat = DBNull.Value == dr["Vat"] ? 0 : Convert.ToDecimal(dr["Vat"]),// for check
-                                VatExemptSales = DBNull.Value == dr["VatExemptSales"] ? 0 : Convert.ToDecimal(dr["VatExemptSales"]),// for check
-                                VatAmount = DBNull.Value == dr["VatAmount"] ? 0 : Convert.ToDecimal(dr["VatAmount"]),// for check
-                                LrReference = DBNull.Value == dr["LrReference"] ? "" : dr["LrReference"].ToString(),
-                                LastPaymentDate = DBNull.Value == dr["LastPaymentDate"] ? lastPaymentDate : Convert.ToDateTime(dr["LastPaymentDate"]),
-                                Sow = DBNull.Value == dr["Sow"] ? "" : dr["Sow"].ToString(),
-                                Parity = DBNull.Value == dr["Parity"] ? "" : dr["Parity"].ToString(),
-                                Series = DBNull.Value == dr["Series"] ? "" : dr["Series"].ToString(),
-                                KanegoDiscount = DBNull.Value == dr["Kanegodiscount"] ? 0 : Convert.ToDecimal(dr["Kanegodiscount"]),
-                                AccountNumber = DBNull.Value == dr["AccountNumber"] ? "" : dr["AccountNumber"].ToString(),
-                                DeductionDiscount = DBNull.Value == dr["DeductionDiscount"] ? 0 : Convert.ToDecimal(dr["DeductionDiscount"]),
-                                TerminalNumber = DBNull.Value == dr["TerminalNumber"] ? "" : dr["TerminalNumber"].ToString(),
-                                MinNumber = DBNull.Value == dr["MinNumber"] ? "" : dr["MinNumber"].ToString(),
-                                GrossTotal = DBNull.Value == dr["GrossTotal"] ? 0 : Convert.ToDecimal(dr["GrossTotal"]), // for check
-                                SystemDate = Convert.ToDateTime(dr["SystemDate"]),
-                                SeniorId = DBNull.Value == dr["SeniorId"] ? "" : dr["SeniorId"].ToString(),
-                                LastUpdateUser = DBNull.Value == dr["LastUpdateUser"] ? "" : dr["LastUpdateUser"].ToString(),
-                                Module = DBNull.Value == dr["Module"] ? "" : dr["Module"].ToString(),
-                                ExternalId = Convert.ToInt32(dr["IdLedger"]),
-                                IsPrinted = Convert.ToInt32(dr["IsPrinted"]) == 1 ? true : false,
-                                DwExtract = Convert.ToBoolean(dr["dwextract"]),
-                                Returned = Convert.ToBoolean(dr["Returned"]),
-                                ColaId = Convert.ToInt32(dr["ColaId"]),
-                                AvailPromo = Convert.ToBoolean(dr["AvailPromo"]),
-                                IsFpSignatory = Convert.ToBoolean(dr["IsFPSignatory"]),
-                                IsSmsSent = Convert.ToBoolean(dr["IsSMSSent"]),
-                                DataSourceId = _company.DataSourceId,
-                                MainSegmentCode = _company.MainSegment,
-                                BusinessSegmentCode = _company.BusinessSegment,
-                                BranchCode = _company.BranchCode,
-                                WarehouseCode = _company.WarehouseCode
+                                LrBatch = dr["lrBatch"].ToString(),
+                                LrType = dr["lrType"].ToString(),
+                                SeniorDiscount = dr["srDiscount"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["srDiscount"]),
+                                FeedsDiscount = dr["FeedsDiscount"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["FeedsDiscount"]),
+                                Vat = dr["vat"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["vat"]),
+                                VatExemptSales = dr["vatExemptSales"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["vatExemptSales"]),
+                                VatAmount = dr["vatAmount"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["vatAmount"]),
+                                KanegoDiscount = dr["Kanegodiscount"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["Kanegodiscount"]),
+                                WarehouseCode = dr["warehouseCode"].ToString(),
+                                LrReference = dr["lrReference"] == DBNull.Value ? "" : dr["lrReference"].ToString(),
+                                ColaId = dr["colaId"] == DBNull.Value ? 0 : Convert.ToInt32(dr["colaId"]),
+
+
                             });
                         }
                     }
@@ -169,7 +141,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
                     { "@untilIdLedger", untilIdLedger }
                 };
 
-                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.GetSalesQuery(ColaTransactionEnum.ColaDetail), param))
+                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.GetColaQuery(ColaTransactionEnum.ColaDetail), param))
                 {
                     using (var dr = conn.MySQLReader())
                     {
@@ -177,33 +149,30 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
                         {
                             result.Add(new ColaTransactionDetail
                             {
-                                Reference = dr["Reference"].ToString(),
-                                Barcode = DBNull.Value == dr["Barcode"] ? "" : dr["Barcode"].ToString(),
-                                ItemCode = DBNull.Value == dr["ItemCode"] ? "" : dr["ItemCode"].ToString(),
-                                ItemDescription = DBNull.Value == dr["ItemDescription"] ? "" : dr["ItemDescription"].ToString(),
-                                UnitOfMeasureCode = DBNull.Value == dr["UomCode"] ? "" : dr["UomCode"].ToString(),
-                                UnitOfMeasureDescription = DBNull.Value == dr["UomDescription"] ? "" : dr["UomDescription"].ToString(),
-                                Quantity = DBNull.Value == dr["Quantity"] ? 0 : Convert.ToDecimal(dr["Quantity"]),
-                                Cost = DBNull.Value == dr["Cost"] ? 0 : Convert.ToDecimal(dr["Cost"]),
-                                SellingPrice = DBNull.Value == dr["SellingPrice"] ? 0 : Convert.ToDecimal(dr["SellingPrice"]),
-                                FeedsDiscount = DBNull.Value == dr["Feedsdiscount"] ? 0 : Convert.ToDecimal(dr["Feedsdiscount"]),
+                                DetailNum = Convert.ToInt32(dr["detailNum"]),
+                                TransNum = Convert.ToInt32(dr["transNum"]),
+                                Barcode =  dr["barcode"].ToString(),
+                                ItemCode = dr["itemCode"].ToString(),
+                                ItemDescription = dr["itemDescription"].ToString(),
+                                UnitOfMeasureCode = dr["uomCode"].ToString(),
+                                UnitOfMeasureDescription = dr["uomDescription"].ToString(),
+                                Quantity = DBNull.Value == dr["quantity"] ? 0 : Convert.ToDecimal(dr["quantity"]),
+                                Cost = DBNull.Value == dr["cost"] ? 0 : Convert.ToDecimal(dr["cost"]),
+                                SellingPrice = DBNull.Value == dr["sellingPrice"] ? 0 : Convert.ToDecimal(dr["sellingPrice"]),
+                                FeedsDiscount = DBNull.Value == dr["feedsDiscount"] ? 0 : Convert.ToDecimal(dr["feedsDiscount"]),
                                 Total = DBNull.Value == dr["Total"] ? 0 : Convert.ToDecimal(dr["Total"]),
-                                Conversion = DBNull.Value == dr["Conversion"] ? 0 : Convert.ToDecimal(dr["Conversion"]),
-                                SystemDate = Convert.ToDateTime(dr["SystemDate"]),
-                                IdUser = DBNull.Value == dr["IdUser"] ? "" : dr["IdUser"].ToString(),
-                                SeniorDiscount = DBNull.Value == dr["Srdiscount"] ? 0 : Convert.ToDecimal(dr["Srdiscount"]),
-                                KanegoDiscount = DBNull.Value == dr["KanegoDiscount"] ? 0 : Convert.ToDecimal(dr["KanegoDiscount"]),
-                                RunningQuantity = DBNull.Value == dr["RunningQuantity"] ? 0 : Convert.ToDecimal(dr["RunningQuantity"]),
-                                Vat = DBNull.Value == dr["Vat"] ? 0 : Convert.ToDecimal(dr["Vat"]),
-                                Vatable = DBNull.Value == dr["Vatable"] ? 0 : Convert.ToDecimal(dr["Vatable"]),
-                                VatExempt = DBNull.Value == dr["Vatexempt"] ? 0 : Convert.ToDecimal(dr["Vatexempt"]),
-                                LineTotal = DBNull.Value == dr["LineTotal"] ? 0 : Convert.ToDecimal(dr["LineTotal"]),
-                                DeductionDiscount = DBNull.Value == dr["DeductionDiscount"] ? 0 : Convert.ToDecimal(dr["DeductionDiscount"]),
-                                CancelledQuantity = DBNull.Value == dr["CancelledQuantity"] ? 0 : Convert.ToDecimal(dr["CancelledQuantity"]),
-                                IsEcommerce = Convert.ToBoolean(dr["IsEcommerce"]),
-                                IsInsert = Convert.ToBoolean(dr["IsInsert"]),
-                                Module = DBNull.Value == dr["Module"] ? "" : dr["Module"].ToString(),
-                                LastUpdateUser = DBNull.Value == dr["LastUpdateUser"] ? "" : dr["LastUpdateUser"].ToString(),
+                                Conversion = DBNull.Value == dr["conversion"] ? 0 : Convert.ToDecimal(dr["conversion"]),
+                                SystemDate = DBNull.Value == dr["systemDate"] ? DateTime.MinValue : Convert.ToDateTime(dr["systemDate"]),
+                                SeniorDiscount = DBNull.Value == dr["srdiscount"] ? 0 : Convert.ToDecimal(dr["srdiscount"]),
+                                RunningQuantity = DBNull.Value == dr["runningQuantity"] ? 0 : Convert.ToDecimal(dr["runningQuantity"]),
+                                KanegoDiscount = DBNull.Value == dr["kanegoDiscount"] ? 0 : Convert.ToDecimal(dr["kanegoDiscount"]),
+                                AverageCost = DBNull.Value == dr["averageCost"] ? 0 : Convert.ToDecimal(dr["averageCost"]),
+                                RunningValue = DBNull.Value == dr["runningValue"] ? 0 : Convert.ToDecimal(dr["runningValue"]),
+                                RunningQty = DBNull.Value == dr["runningQty"] ? 0 : Convert.ToDecimal(dr["runningQty"]),
+                                LineTotal = DBNull.Value == dr["lineTotal"] ? 0 : Convert.ToDecimal(dr["lineTotal"]),
+                                Vat = DBNull.Value == dr["vat"] ? 0 : Convert.ToDecimal(dr["vat"]),
+                                VatExempt = DBNull.Value == dr["vatExempt"] ? 0 : Convert.ToDecimal(dr["vatExempt"]),
+
 
                             });
                         }
@@ -218,62 +187,6 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
             }
         }
 
-        private List<ColaTransactionPayment> GetColaPayments(int lastIdLedger, int untilIdLedger)
-        {
-            try
-            {
-                var result = new List<ColaTransactionPayment>();
-
-                var param = new Dictionary<string, object>()
-                {
-                    { "@lastIdLedger", lastIdLedger },
-                    { "@untilIdLedger", untilIdLedger }
-                };
-
-                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.GetSalesQuery(ColaTransactionEnum.ColaPayment), param))
-                {
-                    using (var dr = conn.MySQLReader())
-                    {
-                        while (dr.Read())
-                        {
-                            DateTime dateResult;
-                            bool lastUpdatedDateIsValid = DateTime.TryParseExact(dr["CheckDate"].ToString(),
-                            "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateResult);
-                            DateTime? checkDate = null;
-
-                            if (lastUpdatedDateIsValid)
-                                checkDate = dateResult;
-
-                            result.Add(new ColaTransactionPayment
-                            {
-                                SalesModeOfPaymentId = 0,
-                                Reference = dr["Reference"].ToString(),
-                                SalesModeOfPaymentCode = DBNull.Value == dr["PaymentCode"] ? "" : dr["PaymentCode"].ToString(),
-                                Amount = DBNull.Value == dr["Amount"] ? 0 : Convert.ToDecimal(dr["Amount"]),
-                                ChangeAmount = DBNull.Value == dr["ChangeAmount"] ? 0 : Convert.ToDecimal(dr["ChangeAmount"]),
-                                CheckNumber = DBNull.Value == dr["CheckNumber"] ? "" : dr["CheckNumber"].ToString(),
-                                BankCode = DBNull.Value == dr["BankCode"] ? "" : dr["BankCode"].ToString(),
-                                CheckDate = DBNull.Value == dr["CheckDate"] ? (DateTime?)null : Convert.ToDateTime(dr["CheckDate"]),
-                                //CheckDate = checkDate,
-                                SystemDate = Convert.ToDateTime(dr["SystemDate"]),
-                                GLAccountId = 0,
-                                GLAccountCode = DBNull.Value == dr["AccountCode"] ? "" : dr["AccountCode"].ToString(),
-                                GLAccountName = DBNull.Value == dr["AccountName"] ? "" : dr["AccountName"].ToString(),
-                                IdUser = dr["IdUser"].ToString(),
-                                IsExtracted = Convert.ToBoolean(dr["IsExtracted"]),
-                                TransactionTypeCode = dr["TransType"].ToString()
-                            });
-                        }
-                    }
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
-        }
 
         #endregion GET
     }

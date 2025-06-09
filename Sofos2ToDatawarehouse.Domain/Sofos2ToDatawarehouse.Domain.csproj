@@ -47,6 +47,9 @@
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\BulkUpSert\ChargeAmountBulkUpsertRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\BulkUpSert\ChargeAmountBulkUpsertResponse.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\Create\CreateChargeAmountCommand.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\BulkUpSert\ItemsBulkUpsertRequest.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\BulkUpSert\ItemsBulkUpsertResponse.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\Create\CreateItemsCommand.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\LogsEntityPost\LogsEntityPostRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\LogsEntityPost\LogsEntityPostResponse.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaTransaction\BulkUpSert\ColaTransactionBulkUpsertRequest.cs" />
@@ -59,11 +62,13 @@
     <Compile Include="DTOs\SIDCSalesServiceAPISettings.cs" />
     <Compile Include="DTOs\SIDCToken\SIDCTokenRequest.cs" />
     <Compile Include="DTOs\SIDCToken\SIDCTokenResponse.cs" />
+    <Compile Include="Entity\Accounting\AccountDetails.cs" />
     <Compile Include="Entity\General\Company.cs" />
     <Compile Include="Entity\General\DataSource.cs" />
     <Compile Include="Entity\General\DropSiteModel.cs" />
     <Compile Include="Entity\General\Global.cs" />
     <Compile Include="Entity\General\LoggerModel.cs" />
+    <Compile Include="Entity\Inventory\Items.cs" />
     <Compile Include="Entity\Sales\ColaTransaction.cs" />
     <Compile Include="Entity\Sales\ColaTransactionDetail.cs" />
     <Compile Include="Entity\Sales\ColaTransactionPayment.cs" />
@@ -73,8 +78,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTOs\SIDCAPI%27s\Inventory\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

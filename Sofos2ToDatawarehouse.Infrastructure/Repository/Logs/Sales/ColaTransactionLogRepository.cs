@@ -15,8 +15,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales
     {
         public void ExportToJSONFile(List<ColaTransaction> colaTransactionHeader, string transType, string branchCode, string dropSitePathExtractedBase, string dropSitePathLog)
         {
-            int firstIdLedger = colaTransactionHeader.Min(o => o.IdLedger);
-            int lastIdLedger = colaTransactionHeader.Max(o => o.IdLedger);
+            int firstIdLedger = colaTransactionHeader.Min(o => o.TransNum);
+            int lastIdLedger = colaTransactionHeader.Max(o => o.TransNum);
             int transactionCount = colaTransactionHeader.Count();
 
             string filePath = dropSitePathExtractedBase;
