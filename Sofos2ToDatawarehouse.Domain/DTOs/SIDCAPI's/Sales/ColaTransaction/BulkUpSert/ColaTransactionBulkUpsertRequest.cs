@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.BulkUpSert
 {
-    public class ColaTransactionBulkUpsertRequest
+    public class ColaStubBulkUpsertRequest
     {
         public List<CreateColaTransactionCommand> CreateColaTransactionCommand { get; set; }
     }

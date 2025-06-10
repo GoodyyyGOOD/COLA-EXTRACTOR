@@ -1,4 +1,5 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.LogsEntityPost;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.BulkUpSert;
 using System;
@@ -13,7 +14,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
 
     public class ProcessLogsService
     {
-        public async Task ColaTransactionLogsServiceRequestAsync(ColaTransactionBulkUpsertRequest colaTransactionBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        public async Task ColaTransactionLogsServiceRequestAsync(ColaStubBulkUpsertRequest colaTransactionBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
         {
             string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
 
@@ -47,6 +48,28 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
                 FirstIdLedger = chargeAmountBulkUpsertRequest.CreateChargeAmountCommand.Min(o => o.TransNum),
                 LastIdLedger = chargeAmountBulkUpsertRequest.CreateChargeAmountCommand.Max(o => o.TransNum),
                 TransactionCount = chargeAmountBulkUpsertRequest.CreateChargeAmountCommand.Count(),
+                BranchCode = branchCode
+            };
+
+            await sidcAPILogsService.SendPostAsync(logsEntityPostRequest, tokenForLogsService);
+        }
+
+        #endregion
+
+        #region Inventory
+
+        public async Task ItemsLogsServiceRequestAsync(ItemsBulkUpsertRequest itemsBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        {
+            string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
+
+            LogsEntityPostRequest logsEntityPostRequest = new LogsEntityPostRequest()
+            {
+                TransactionType = "INVENTORY",
+                ServiceType = "INVENTORY SERVICE",
+                FileName = fileName,
+                //FirstIdLedger = itemsBulkUpsertRequest.CreateItemsCommand.Min(o => o.TransNum),
+                //LastIdLedger = itemsBulkUpsertRequest.CreateItemsCommand.Max(o => o.TransNum),
+                TransactionCount = itemsBulkUpsertRequest.CreateItemsCommand.Count(),
                 BranchCode = branchCode
             };
 

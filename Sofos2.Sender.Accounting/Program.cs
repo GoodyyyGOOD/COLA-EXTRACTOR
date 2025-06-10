@@ -1,4 +1,4 @@
-﻿using Sofos2.Sender.AccountingInventorySales.Controller;
+﻿using Sofos2.Sender.Accounting.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;

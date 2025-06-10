@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sofos2.Sender.AccountingInventorySales")]
+[assembly: AssemblyTitle("Sofos2.Sender.Inventory")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Sofos2.Sender.AccountingInventorySales")]
+[assembly: AssemblyProduct("Sofos2.Sender.Inventory")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ac1d652e-2824-400a-b9c2-4d5ffbc3b9e9")]
+[assembly: Guid("cd835939-f1d9-4ac2-9dfc-0f1d61f1b620")]
 
 // Version information for an assembly consists of the following four values:
 //

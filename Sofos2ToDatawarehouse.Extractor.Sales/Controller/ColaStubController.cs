@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
 {
-    public class ColaController
+    public class ColaStubController
     {
         #region Private Declaration
 
@@ -28,7 +28,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
 
         #endregion Private Declaration
 
-        public ColaController()
+        public ColaStubController()
         {
             InitilizeDropSiteAndSalesRepositories();
             InitializeFolders();
@@ -36,7 +36,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
 
         #region Public Methods
 
-        public void  ProcessExtraction()
+        public void ProcessExtraction()
         {
             try
             {

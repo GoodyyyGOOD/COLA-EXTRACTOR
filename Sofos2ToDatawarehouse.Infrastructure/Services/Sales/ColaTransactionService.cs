@@ -23,9 +23,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             _sidcAPIServiceSettings = sidcAPIServiceSettings;
         }
 
-        public async Task<ColaTransactionBulkUpsertResponse> SendBulkUpSertAsync(ColaTransactionBulkUpsertRequest salesTransactionBulkUpsertRequest, string token)
+        public async Task<ColaStubBulkUpsertResponse> SendBulkUpSertAsync(ColaStubBulkUpsertRequest salesTransactionBulkUpsertRequest, string token)
         {
-            var colaTransactionBulkUpsertResponse = new ColaTransactionBulkUpsertResponse();
+            var colaTransactionBulkUpsertResponse = new ColaStubBulkUpsertResponse();
 
             try
             {
@@ -57,7 +57,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
 
                     string responseFromServer = await reader.ReadToEndAsync();
 
-                    colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaTransactionBulkUpsertResponse>(responseFromServer);
+                    colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaStubBulkUpsertResponse>(responseFromServer);
                 }
                 response.Close();
             }
@@ -68,9 +68,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             return colaTransactionBulkUpsertResponse;
         }
 
-        public async Task<ColaTransactionBulkUpsertResponse> PostColaTransactionAsync(ColaTransactionBulkUpsertRequest colaTransactionBulkUpsertRequest)
+        public async Task<ColaStubBulkUpsertResponse> PostColaTransactionAsync(ColaStubBulkUpsertRequest colaTransactionBulkUpsertRequest)
         {
-            var colaTransactionBulkUpsertResponse = new ColaTransactionBulkUpsertResponse();
+            var colaTransactionBulkUpsertResponse = new ColaStubBulkUpsertResponse();
 
             try
             {
@@ -101,7 +101,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             string responseFromServer = await reader.ReadToEndAsync();
-                            colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaTransactionBulkUpsertResponse>(responseFromServer);
+                            colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaStubBulkUpsertResponse>(responseFromServer);
                         }
                     }
                 }

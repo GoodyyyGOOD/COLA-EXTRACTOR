@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sofos2.Sender.AccountingInventorySales.Controller
+namespace Sofos2.Sender.Accounting.Controller
 {
     public class AccountingController
         {

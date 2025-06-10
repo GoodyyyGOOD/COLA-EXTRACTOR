@@ -52,6 +52,9 @@
     <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\Create\CreateItemsCommand.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\LogsEntityPost\LogsEntityPostRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\LogsEntityPost\LogsEntityPostResponse.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaStub\BulkUpSert\ColaStubBulkUpsertRequest.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaStub\BulkUpSert\ColaStubBulkUpsertResponse.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaStub\Create\CreateColaStubCommand.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaTransaction\BulkUpSert\ColaTransactionBulkUpsertRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaTransaction\BulkUpSert\ColaTransactionBulkUpsertResponse.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Sales\ColaTransaction\Create\CreateColaTransactionCommand.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Entity\General\Global.cs" />
     <Compile Include="Entity\General\LoggerModel.cs" />
     <Compile Include="Entity\Inventory\Items.cs" />
+    <Compile Include="Entity\Sales\ColaStub.cs" />
     <Compile Include="Entity\Sales\ColaTransaction.cs" />
     <Compile Include="Entity\Sales\ColaTransactionDetail.cs" />
     <Compile Include="Entity\Sales\ColaTransactionPayment.cs" />

@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AC1D652E-2824-400A-B9C2-4D5FFBC3B9E9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Sofos2.Sender.AccountingInventorySales</RootNamespace>
-    <AssemblyName>Sofos2.Sender.AccountingInventorySales</AssemblyName>
+    <RootNamespace>Sofos2.Sender.Accounting</RootNamespace>
+    <AssemblyName>Sofos2.Sender.Accounting</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

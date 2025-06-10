@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert
 {
-    public class ItemsBulkUpsertResponse
+    public class ItemsBulkUpsertResponse : SIDCBaseResponse
     {
         public string Data { get; set; }
     }
