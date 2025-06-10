@@ -8,11 +8,11 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
 {
     public class AccountingQuery
     {
-        public static StringBuilder GetAccountingQuery(AccountingEnum process)
-        //public static StringBuilder GetAccountingQuery(AccountingEnum process, DateTime? specificDate = null)
+        //public static StringBuilder GetAccountingQuery(AccountingEnum process)
+        public static StringBuilder GetAccountingQuery(AccountingEnum process, DateTime? specificDate = null)
         {
             var sQuery = new StringBuilder();
-            //var dateToUse = specificDate ?? DateTime.Today;
+            var dateToUse = specificDate ?? DateTime.Today;
 
             switch (process)
             {
@@ -20,7 +20,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
 
                 case AccountingEnum.AccountingHeader:
 
-                    sQuery.Append(@"SELECT
+                    sQuery.Append($@"SELECT
                                     b.transNum,
 									a.memberid,
                                     a.transtype,
@@ -34,8 +34,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
                                     AND a.transtype='CO' 
                                     AND a.creditlimit != 0 
                                     AND a.colaid != 0
-                                    #AND date(b.transdate)=('{dateToUse:yyyy-MM-dd}');
-                                    AND date(b.transdate)=('2024-01-25') 
+                                    AND date(b.transdate)=('{dateToUse:yyyy-MM-dd}');
+                                    #AND date(b.transdate)=('2024-01-25') 
                                     ORDER BY b.transnum ASC LIMIT @limitTransaction;
                                     ");
                     break;
