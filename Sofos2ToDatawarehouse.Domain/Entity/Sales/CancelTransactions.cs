@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Domain.Entity.Sales
 {
-    public class ColaStub
+    public class CancelTransactions
     {
+        public int Transnum { get; set; }
         public string Reference { get; set; }
+        public string CrossReference { get; set; }
         public string EmployeeId { get; set; }
         public bool Cancelled { get; set; }
         public string Status { get; set; }

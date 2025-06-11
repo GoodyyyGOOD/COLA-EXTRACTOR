@@ -1,9 +1,9 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
+using Sofos2ToDatawarehouse.Infrastructure.Services.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity;
-using Sofos2ToDatawarehouse.Infrastructure.Services.Sales;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,17 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOFOS2.Sender.Sales.Controller
+namespace Sofos2.Sender.ColaStub.Controller
 {
-    public class SalesController
+    public class ColaStubController
     {
-        private string _accountingModule = "CO";
+        private string _colaStubModule = "CS";
 
-        private string dropSitePathExtractedColaTransactionPOBase = string.Empty;
-        private string dropSitePathTransferredColaTransactionBase = string.Empty;
-        private string dropSitePathLogsColaTransactionBase = string.Empty;
+        private string dropSitePathExtractedColaStubPOBase = string.Empty;
+        private string dropSitePathTransferredColaStubBase = string.Empty;
+        private string dropSitePathLogsColaStubBase = string.Empty;
 
-        private ColaTransactionService _colaTransactionService;
+        private ColaStubService _colaStubService;
 
         private SIDCAPILogsService _sidcAPILogsService;
         private ProcessLogsService _processLogsService;
@@ -29,43 +29,43 @@ namespace SOFOS2.Sender.Sales.Controller
         private DropSiteModelRepository _dropSiteModelRepository;
         private string _branchCode = Properties.Settings.Default.BRANCH_CODE;
 
-        public SalesController()
+        public ColaStubController()
         {
             InitilizeDropSiteAndRepositories();
             InitializeFolders();
         }
 
 
-        public async Task SendingColaTransactionToAPIAsync()
+        public async Task SendingColaStubToAPIAsync()
         {
             try
             {
 
-                DirectoryInfo directoryInfo = new DirectoryInfo(dropSitePathExtractedColaTransactionPOBase);
+                DirectoryInfo directoryInfo = new DirectoryInfo(dropSitePathExtractedColaStubPOBase);
                 FileInfo[] extractedFiles = directoryInfo.GetFiles("*.json");
 
 
                 foreach (FileInfo extractedFile in extractedFiles)
                 {
-                    ColaTransactionBulkUpsertRequest colaTransactionBulkUpsertRequest = new ColaTransactionBulkUpsertRequest();
+                    ColaStubBulkUpsertRequest colaStubBulkUpsertRequest = new ColaStubBulkUpsertRequest();
 
                     string jsonString = File.ReadAllText(extractedFile.FullName);
 
-                    colaTransactionBulkUpsertRequest.CreateColaTransactionCommand = _colaTransactionService.DeserializeObjectToColaTransactionBulkUpSertRequest(jsonString);
+                    colaStubBulkUpsertRequest.CreateColaStubCommand = _colaStubService.DeserializeObjectToColaStubBulkUpSertRequest(jsonString);
 
-                    //string tokenForStockRequestService = await _colaTransactionService.SendAuthenticationAsync();
+                    //string tokenForStockRequestService = await _colaStubService.SendAuthenticationAsync();
 
-                    colaTransactionBulkUpsertRequest.CreateColaTransactionCommand = colaTransactionBulkUpsertRequest.CreateColaTransactionCommand;
-                    var responseSendBulkUpsert = await _colaTransactionService.PostColaTransactionAsync(colaTransactionBulkUpsertRequest);
+                    colaStubBulkUpsertRequest.CreateColaStubCommand = colaStubBulkUpsertRequest.CreateColaStubCommand;
+                    var responseSendBulkUpsert = await _colaStubService.PostColaStubAsync(colaStubBulkUpsertRequest);
 
 
                     try
                     {
                         if (responseSendBulkUpsert.Succeeded)
                         {
-                            Console.WriteLine("Sending COLA transactions. . .");
-                            await _colaTransactionService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaTransactionBase, extractedFile.Name));
-                            await _processLogsService.ColaTransactionLogsServiceRequestAsync(colaTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            Console.WriteLine("Sending colastub transactions. . .");
+                            await _colaStubService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaStubBase, extractedFile.Name));
+                            await _processLogsService.ColaStubLogsServiceRequestAsync(colaStubBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                         }
                     }
                     catch (Exception ex)
@@ -73,18 +73,18 @@ namespace SOFOS2.Sender.Sales.Controller
 
                         if (ex is IOException || ex is UnauthorizedAccessException moveFileException)
                         {
-                            Console.WriteLine($"Error in ColaTransactionToAPIAsync MoveFileToTransferredAsync");
+                            Console.WriteLine($"Error in ColaStubToAPIAsync MoveFileToTransferredAsync");
                         }
                         else
                         {
-                            Console.WriteLine("Error in ColaTransactionToAPIAsync LogsServiceRequestAsync");
+                            Console.WriteLine("Error in ColaStubToAPIAsync LogsServiceRequestAsync");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error occurred: ColaTransactionToAPIAsync {ex.Message}");
+                Console.WriteLine($"Error occurred: ColaStubToAPIAsync {ex.Message}");
             }
         }
 
@@ -93,20 +93,20 @@ namespace SOFOS2.Sender.Sales.Controller
         private void InitializeFolders()
         {
 
-            string dropSitePathExtractedBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
-            dropSitePathExtractedColaTransactionPOBase = Path.Combine(dropSitePathExtractedBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathExtractedColaTransactionPOBase))
-                Directory.CreateDirectory(dropSitePathExtractedColaTransactionPOBase);
+            string dropSitePathExtractedBaseCS = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
+            dropSitePathExtractedColaStubPOBase = Path.Combine(dropSitePathExtractedBaseCS, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathExtractedColaStubPOBase))
+                Directory.CreateDirectory(dropSitePathExtractedColaStubPOBase);
 
-            string dropSitePathTransferredBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
-            dropSitePathTransferredColaTransactionBase = Path.Combine(dropSitePathTransferredBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathTransferredColaTransactionBase))
-                Directory.CreateDirectory(dropSitePathTransferredColaTransactionBase);
+            string dropSitePathTransferredBaseCS = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
+            dropSitePathTransferredColaStubBase = Path.Combine(dropSitePathTransferredBaseCS, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathTransferredColaStubBase))
+                Directory.CreateDirectory(dropSitePathTransferredColaStubBase);
 
-            string dropSitePathLogsBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
-            dropSitePathLogsColaTransactionBase = Path.Combine(dropSitePathLogsBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathLogsColaTransactionBase))
-                Directory.CreateDirectory(dropSitePathLogsColaTransactionBase);
+            string dropSitePathLogsBaseCS = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
+            dropSitePathLogsColaStubBase = Path.Combine(dropSitePathLogsBaseCS, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathLogsColaStubBase))
+                Directory.CreateDirectory(dropSitePathLogsColaStubBase);
         }
 
         private SIDCLogsServiceApiSettings SetSIDCLogServiceApiSettings()
@@ -133,7 +133,7 @@ namespace SOFOS2.Sender.Sales.Controller
 
                 }
             };
-            _colaTransactionService = new ColaTransactionService(SetSIDCAPIServiceSettings());
+            _colaStubService = new ColaStubService(SetSIDCAPIServiceSettings());
             //_sidcAPILogsService = new SIDCAPILogsService(SetSIDCLogServiceApiSettings());
             //_processLogsService = new ProcessLogsService();
         }
@@ -142,9 +142,9 @@ namespace SOFOS2.Sender.Sales.Controller
         {
             var _sidcServiceApiSettings = new SIDCAPIServiceSettings();
             _sidcServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
-            _sidcServiceApiSettings.SalesBaseUrl = Properties.Settings.Default.API_COLA_URL;
+            _sidcServiceApiSettings.ColaStubBaseUrl = Properties.Settings.Default.API_COLASTUB_URL;
             //_sidcServiceApiSettings.IdentityUrl = Properties.Settings.Default.API_IDENTITY_BASE_URL;
-            //_sidcServiceApiSettings.AccountingBaseUrl = Properties.Settings.Default.API_ACCOUNTING_BASE_URL;
+            //_sidcServiceApiSettings.ColaStubBaseUrl = Properties.Settings.Default.API_colaStub_BASE_URL;
             //_sidcServiceApiSettings.AuthTokenUrl = Properties.Settings.Default.API_AUTH_TOKEN_URL;
             //_sidcServiceApiSettings.AuthUser = Properties.Settings.Default.API_AUTH_USERNAME;
             //_sidcServiceApiSettings.AuthPassword = PasswordDecode(Properties.Settings.Default.API_AUTH_PASSWORD);
@@ -160,5 +160,4 @@ namespace SOFOS2.Sender.Sales.Controller
         }
     }
 }
-
 #endregion

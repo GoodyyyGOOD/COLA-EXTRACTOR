@@ -1,5 +1,5 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.Create;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.Create;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using System;
 using System.Collections.Generic;
 using System.Linq;

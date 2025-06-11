@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Sofos2ToDatawarehouse.Domain.DTOs;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.Create;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +23,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             _sidcAPIServiceSettings = sidcAPIServiceSettings;
         }
 
-        public async Task<ColaStubBulkUpsertResponse> SendBulkUpSertAsync(ColaStubBulkUpsertRequest salesTransactionBulkUpsertRequest, string token)
+        public async Task<ColaTransactionBulkUpsertResponse> SendBulkUpSertAsync(ColaTransactionBulkUpsertRequest salesTransactionBulkUpsertRequest, string token)
         {
-            var colaTransactionBulkUpsertResponse = new ColaStubBulkUpsertResponse();
+            var colaTransactionBulkUpsertResponse = new ColaTransactionBulkUpsertResponse();
 
             try
             {
@@ -57,7 +57,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
 
                     string responseFromServer = await reader.ReadToEndAsync();
 
-                    colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaStubBulkUpsertResponse>(responseFromServer);
+                    colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaTransactionBulkUpsertResponse>(responseFromServer);
                 }
                 response.Close();
             }
@@ -68,9 +68,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             return colaTransactionBulkUpsertResponse;
         }
 
-        public async Task<ColaStubBulkUpsertResponse> PostColaTransactionAsync(ColaStubBulkUpsertRequest colaTransactionBulkUpsertRequest)
+        public async Task<ColaTransactionBulkUpsertResponse> PostColaTransactionAsync(ColaTransactionBulkUpsertRequest colaTransactionBulkUpsertRequest)
         {
-            var colaTransactionBulkUpsertResponse = new ColaStubBulkUpsertResponse();
+            var colaTransactionBulkUpsertResponse = new ColaTransactionBulkUpsertResponse();
 
             try
             {
@@ -101,7 +101,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             string responseFromServer = await reader.ReadToEndAsync();
-                            colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaStubBulkUpsertResponse>(responseFromServer);
+                            colaTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<ColaTransactionBulkUpsertResponse>(responseFromServer);
                         }
                     }
                 }

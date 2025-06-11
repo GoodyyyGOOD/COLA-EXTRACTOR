@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using Sofos2ToDatawarehouse.Domain.DTOs;
 using System;
 using System.Collections.Generic;
@@ -9,16 +7,16 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.Create;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.Create;
 
-namespace Sofos2ToDatawarehouse.Infrastructure.Services.Accounting
+namespace Sofos2ToDatawarehouse.Infrastructure.Services.CancelTransaction
 {
-    public class AccountingService : SIDCAPIAccountingService
+    public class CancelTransactionService : SIDCAPICancelTransactionService
     {
         //private string ChargeAmountBulkUpSert = "v1/accounting/transactions/AccountingTransaction/bulk-update-insert";
 
-        public AccountingService(SIDCAPIServiceSettings sidcAPIServiceSettings)
+        public CancelTransactionService(SIDCAPIServiceSettings sidcAPIServiceSettings)
         {
             _sidcAPIServiceSettings = sidcAPIServiceSettings;
         }
@@ -67,9 +65,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Accounting
         //    }
         //    return chargeAmountBulkUpsertResponse;
         //}
-        public async Task<ChargeAmountBulkUpsertResponse> PostChargeAmountAsync(ChargeAmountBulkUpsertRequest chargeAmountBulkUpsertRequest)
+        public async Task<CancelTransactionBulkUpsertResponse> PostCancelTransactionAsync(CancelTransactionBulkUpsertRequest cancelTransactionBulkUpsertRequest)
         {
-            var chargeAmountBulkUpsertResponse = new ChargeAmountBulkUpsertResponse();
+            var CancelTransactionBulkUpsertResponse = new CancelTransactionBulkUpsertResponse();
 
             try
             {
@@ -82,7 +80,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Accounting
                 request.ContentType = "application/json";
 
                 // Serialize the request body
-                string postData = JsonConvert.SerializeObject(chargeAmountBulkUpsertRequest);
+                string postData = JsonConvert.SerializeObject(cancelTransactionBulkUpsertRequest);
                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
                 request.ContentLength = byteArray.Length;
 
@@ -100,24 +98,24 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Accounting
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             string responseFromServer = await reader.ReadToEndAsync();
-                            chargeAmountBulkUpsertResponse = JsonConvert.DeserializeObject<ChargeAmountBulkUpsertResponse>(responseFromServer);
+                            CancelTransactionBulkUpsertResponse = JsonConvert.DeserializeObject<CancelTransactionBulkUpsertResponse>(responseFromServer);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to POST ChargeAmount: {ex.Message}");
+                throw new Exception($"Failed to POST Cancel Transaction: {ex.Message}");
             }
 
-            return chargeAmountBulkUpsertResponse;
+            return CancelTransactionBulkUpsertResponse;
         }
 
         #region Deserialize
 
-        public List<CreateChargeAmountCommand> DeserializeObjectToChargeAmountBulkUpSertRequest(string jsonString)
+        public List<CreateCancelTransactionCommand> DeserializeObjectToCancelTransactionBulkUpSertRequest(string jsonString)
         {
-            return JsonConvert.DeserializeObject<List<CreateChargeAmountCommand>>(jsonString);
+            return JsonConvert.DeserializeObject<List<CreateCancelTransactionCommand>>(jsonString);
         }
 
         #endregion Deserialize

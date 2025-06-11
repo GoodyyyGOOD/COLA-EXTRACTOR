@@ -1,7 +1,9 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.LogsEntityPost;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransactions.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
 
     public class ProcessLogsService
     {
-        public async Task ColaTransactionLogsServiceRequestAsync(ColaStubBulkUpsertRequest colaTransactionBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        public async Task ColaTransactionLogsServiceRequestAsync(ColaTransactionBulkUpsertRequest colaTransactionBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
         {
             string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
 
@@ -77,5 +79,47 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
         }
 
         #endregion
+        #region ColaStub
+        public async Task ColaStubLogsServiceRequestAsync(ColaStubBulkUpsertRequest colaStubBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        {
+            string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
+
+            LogsEntityPostRequest logsEntityPostRequest = new LogsEntityPostRequest()
+            {
+                TransactionType = "SALES",
+                ServiceType = "SALES SERVICE",
+                FileName = fileName,
+                FirstIdLedger = colaStubBulkUpsertRequest.CreateColaStubCommand.Min(o => o.Transnum),
+                LastIdLedger = colaStubBulkUpsertRequest.CreateColaStubCommand.Max(o => o.Transnum),
+                TransactionCount = colaStubBulkUpsertRequest.CreateColaStubCommand.Count(),
+                BranchCode = branchCode
+            };
+
+            await sidcAPILogsService.SendPostAsync(logsEntityPostRequest, tokenForLogsService);
+        }
+
+        #endregion ColaStub
+        #region CancelTransaction
+        public async Task CancelTransactionLogsServiceRequestAsync(CancelTransactionBulkUpsertRequest cancelTransactionBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        {
+            string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
+
+            LogsEntityPostRequest logsEntityPostRequest = new LogsEntityPostRequest()
+            {
+                TransactionType = "SALES",
+                ServiceType = "SALES SERVICE",
+                FileName = fileName,
+                FirstIdLedger = cancelTransactionBulkUpsertRequest.CreateCancelTransactionCommand.Min(o => o.Transnum),
+                LastIdLedger = cancelTransactionBulkUpsertRequest.CreateCancelTransactionCommand.Max(o => o.Transnum),
+                TransactionCount = cancelTransactionBulkUpsertRequest.CreateCancelTransactionCommand.Count(),
+                BranchCode = branchCode
+            };
+
+            await sidcAPILogsService.SendPostAsync(logsEntityPostRequest, tokenForLogsService);
+        }
+
+        #endregion CancelTransaction
+
+
     }
 }

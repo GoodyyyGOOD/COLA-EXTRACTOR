@@ -14,7 +14,8 @@ namespace Sofos2ToDatawarehouse.Domain.Entity.General
 
         public string DropSitePathSalesRC { get; set; } = @"RC\";
         public string DropSitePathSales { get; set; } = @"SALES\";
-
+        public string DropSitePathColaStub { get; set; } = @"COLASTUB\"; 
+        public string DropSitePathCancelTransaction { get; set; } = @"CANCELTRANSACTION\";
         public string DropSitePathInventory { get; set; } = @"INVENTORY\";
 
         public string DropSitePathAccounting { get; set; } = @"ACCOUNTING\";

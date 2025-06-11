@@ -1,8 +1,8 @@
 ﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Infrastructure.Helper;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.ColaStub;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,27 +10,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
+namespace Sofos2ToDatawarehouse.Extractor.ColaStub.Controller
 {
     public class ColaStubController
     {
         #region Private Declaration
 
-        private string _module = "SALES";
+        private string _module = "COLASTUB";
 
-        private string dropSitePathExtractedSalesBase = string.Empty;
-        private string dropSitePathTransferredSalesBase = string.Empty;
-        private string dropSitePathLogsSalesBase = string.Empty;
+        private string dropSitePathExtractedColaStubBase = string.Empty;
+        private string dropSitePathTransferredColaStubBase = string.Empty;
+        private string dropSitePathLogsColaStubBase = string.Empty;
 
-        private SalesRepository _salesRepository;
-        private ColaTransactionLogRepository _colaTransactionLogRepository;
+        private ColaStubRepository _colaStubRepository;
+        private ColaStubLogRepository _colaStubLogRepository;
         private DropSiteModelRepository _dropSiteModelRepository;
 
         #endregion Private Declaration
 
         public ColaStubController()
         {
-            InitilizeDropSiteAndSalesRepositories();
+            InitilizeDropSiteAndColaStubRepositories();
             InitializeFolders();
         }
 
@@ -43,11 +43,11 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
                 var lastIdLedgerLog = AppSettingHelper.GetSetting("lastIdLedgerLogSales");
                 int lastIdlegerFromLog = Int32.Parse(lastIdLedgerLog);
 
-                var salesHeader = _salesRepository.GetColaData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
+                var colaStubTransaction = _colaStubRepository.GetColaStubData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
 
-                if (salesHeader != null)
+                if (colaStubTransaction != null)
                 {
-                    _colaTransactionLogRepository.ExportToJSONFile(salesHeader, _module, _salesRepository._company.BranchCode, dropSitePathExtractedSalesBase, dropSitePathLogsSalesBase);
+                    _colaStubLogRepository.ExportToJSONFile(colaStubTransaction, _module, _colaStubRepository._company.BranchCode, dropSitePathExtractedColaStubBase, dropSitePathLogsColaStubBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else
@@ -78,24 +78,24 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
         private void InitializeFolders()
         {
             string dropSitePathExtractedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
-            dropSitePathExtractedSalesBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathExtractedSalesBase))
-                Directory.CreateDirectory(dropSitePathExtractedSalesBase);
+            dropSitePathExtractedColaStubBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathExtractedColaStubBase))
+                Directory.CreateDirectory(dropSitePathExtractedColaStubBase);
 
             string dropSitePathTransferedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
-            dropSitePathTransferredSalesBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathTransferredSalesBase))
-                Directory.CreateDirectory(dropSitePathTransferredSalesBase);
+            dropSitePathTransferredColaStubBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathTransferredColaStubBase))
+                Directory.CreateDirectory(dropSitePathTransferredColaStubBase);
 
             string dropSitePathLogsBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
-            dropSitePathLogsSalesBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
-            if (!Directory.Exists(dropSitePathLogsSalesBase))
-                Directory.CreateDirectory(dropSitePathLogsSalesBase);
+            dropSitePathLogsColaStubBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathColaStub);
+            if (!Directory.Exists(dropSitePathLogsColaStubBase))
+                Directory.CreateDirectory(dropSitePathLogsColaStubBase);
         }
 
 
 
-        private void InitilizeDropSiteAndSalesRepositories()
+        private void InitilizeDropSiteAndColaStubRepositories()
         {
             _dropSiteModelRepository = new DropSiteModelRepository()
             {
@@ -105,8 +105,8 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
                     QueryMaxFetchLimit = Convert.ToInt32(Properties.Settings.Default.MAX_FETCH_LIMIT)
                 }
             };
-            _salesRepository = new SalesRepository(SetDBSource());
-            _colaTransactionLogRepository = new ColaTransactionLogRepository();
+            _colaStubRepository = new ColaStubRepository(SetDBSource());
+            _colaStubLogRepository = new ColaStubLogRepository();
         }
 
         #endregion Private Methods

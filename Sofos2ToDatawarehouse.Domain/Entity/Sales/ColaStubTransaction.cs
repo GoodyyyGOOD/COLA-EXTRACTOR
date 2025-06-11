@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.Create
+namespace Sofos2ToDatawarehouse.Domain.Entity.Sales
 {
-    public class CreateColaStubCommand
+    public class ColaStubTransaction
     {
         public int Transnum { get; set; }
         public string Reference { get; set; }
@@ -15,6 +15,4 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.Create
         public string Status { get; set; }
         public string BranchCode { get; set; }
     }
- 
-
 }
