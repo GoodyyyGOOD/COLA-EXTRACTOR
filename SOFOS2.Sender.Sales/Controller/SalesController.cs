@@ -94,17 +94,17 @@ namespace SOFOS2.Sender.Sales.Controller
         {
 
             string dropSitePathExtractedBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
-            dropSitePathExtractedColaTransactionPOBase = Path.Combine(dropSitePathExtractedBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            dropSitePathExtractedColaTransactionPOBase = Path.Combine(dropSitePathExtractedBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
             if (!Directory.Exists(dropSitePathExtractedColaTransactionPOBase))
                 Directory.CreateDirectory(dropSitePathExtractedColaTransactionPOBase);
 
             string dropSitePathTransferredBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
-            dropSitePathTransferredColaTransactionBase = Path.Combine(dropSitePathTransferredBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            dropSitePathTransferredColaTransactionBase = Path.Combine(dropSitePathTransferredBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
             if (!Directory.Exists(dropSitePathTransferredColaTransactionBase))
                 Directory.CreateDirectory(dropSitePathTransferredColaTransactionBase);
 
             string dropSitePathLogsBaseCA = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
-            dropSitePathLogsColaTransactionBase = Path.Combine(dropSitePathLogsBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
+            dropSitePathLogsColaTransactionBase = Path.Combine(dropSitePathLogsBaseCA, _dropSiteModelRepository.DropSiteModel.DropSitePathSales);
             if (!Directory.Exists(dropSitePathLogsColaTransactionBase))
                 Directory.CreateDirectory(dropSitePathLogsColaTransactionBase);
         }
