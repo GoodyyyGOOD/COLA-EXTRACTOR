@@ -13,7 +13,7 @@ namespace Sofos2ToDatawarehouse.Domain.Entity.Sales
         public string TransType { get; set; }
         public string Reference { get; set; }
         public string CrossReference { get; set; }
-        public bool IsNoEffectOnInventory { get; set; }
+        public int IsNoEffectOnInventory { get; set; }
         public int CustomerType { get; set; }
         public string MemberId { get; set; }
         public string MemberName { get; set; }
@@ -29,7 +29,7 @@ namespace Sofos2ToDatawarehouse.Domain.Entity.Sales
         public decimal AmountTendered { get; set; }
         public decimal InterestPaid { get; set; }
         public decimal InterestBalance { get; set; }
-        public bool Cancelled { get; set; }
+        public int Cancelled { get; set; }
         public string Status { get; set; }
         public string Extracted { get; set; }
         public string ColaReference { get; set; }

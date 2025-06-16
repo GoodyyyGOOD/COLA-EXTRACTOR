@@ -8,6 +8,19 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Bulk
 {
     public class ColaTransactionBulkUpsertResponse : SIDCBaseResponse
     {
-        public string Data { get; set; }
+        public ApiResponse response { get; set; }
+
+        public bool Succeeded => response?.status_code == 200;
+    }
+
+    public class ApiResponse
+    {
+        public int status_code { get; set; }
+        public Result result { get; set; }
+    }
+
+    public class Result
+    {
+        public string message { get; set; }
     }
 }

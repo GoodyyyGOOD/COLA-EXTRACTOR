@@ -61,7 +61,19 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://161.49.105.231:7557/spork_api_staging/api/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
+        public string API_TOKEN {
+            get {
+                return ((string)(this["API_TOKEN"]));
+            }
+            set {
+                this["API_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/spork-api/api/")]
         public string BASE_URL {
             get {
                 return ((string)(this["BASE_URL"]));
@@ -73,13 +85,49 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
-        public string API_TOKEN {
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string HOST {
             get {
-                return ((string)(this["API_TOKEN"]));
+                return ((string)(this["HOST"]));
             }
             set {
-                this["API_TOKEN"] = value;
+                this["HOST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        public string DB_USERNAME {
+            get {
+                return ((string)(this["DB_USERNAME"]));
+            }
+            set {
+                this["DB_USERNAME"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c3VwZXJ2aXNvcg==")]
+        public string DB_PASSWORD {
+            get {
+                return ((string)(this["DB_PASSWORD"]));
+            }
+            set {
+                this["DB_PASSWORD"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("main")]
+        public string DB_NAME {
+            get {
+                return ((string)(this["DB_NAME"]));
+            }
+            set {
+                this["DB_NAME"] = value;
             }
         }
     }

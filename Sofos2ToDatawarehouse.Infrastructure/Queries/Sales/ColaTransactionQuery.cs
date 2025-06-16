@@ -124,7 +124,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Sales
 
                 case ColaTransactionEnum.UpdateColaHeader:
 
-                    sQuery.Append(@"UPDATE sapt0 SET isInsert=1 WHERE reference=@reference");
+                    sQuery.Append(@"UPDATE sapt0 SET isInsert=1 WHERE transNum=@transNum");
                     break;
 
                 case ColaTransactionEnum.UpdateColaDetail:

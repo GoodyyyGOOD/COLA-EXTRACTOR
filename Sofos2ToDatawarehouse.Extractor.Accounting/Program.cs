@@ -31,7 +31,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Accounting
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("No available data",e.Message);
                 }
                 Thread.Sleep(3000);
 

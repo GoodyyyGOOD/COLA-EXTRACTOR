@@ -27,13 +27,15 @@ namespace SOFOS2.Sender.Sales
                     await controller.SendingColaTransactionToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
+
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(3000);
+                Thread.Sleep(100000);
             }
+
 
 
 

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting.CancelChargeAmountQuery;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting.ChargeAmountQuery;
 using static Sofos2ToDatawarehouse.Infrastructure.Queries.Inventory.ItemQuery;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting
@@ -51,7 +51,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting
                     { "@limitTransaction", maxFetchLimit },
                 };
 
-                using (var conn = new ApplicationContext(_dbSource, CancelChargeAmountQuery.GetAccountingQuery(AccountingEnum.AccountingHeader), param))
+                using (var conn = new ApplicationContext(_dbSource, ChargeAmountQuery.GetAccountingQuery(AccountingEnum.AccountingHeader), param))
                 {
                     using (var dr = conn.MySQLReader())
                     {

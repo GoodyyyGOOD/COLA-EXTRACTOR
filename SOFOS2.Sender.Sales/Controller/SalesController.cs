@@ -1,7 +1,12 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
+using Sofos2ToDatawarehouse.Infrastructure.DbContext;
+using Sofos2ToDatawarehouse.Infrastructure.Helper;
+using Sofos2ToDatawarehouse.Infrastructure.Queries.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity;
 using Sofos2ToDatawarehouse.Infrastructure.Services.Sales;
 using System;
@@ -10,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.Sales.ColaTransactionQuery;
 
 namespace SOFOS2.Sender.Sales.Controller
 {
@@ -23,11 +29,14 @@ namespace SOFOS2.Sender.Sales.Controller
 
         private ColaTransactionService _colaTransactionService;
 
+        private SalesRepository _salesRepository;
+
         private SIDCAPILogsService _sidcAPILogsService;
         private ProcessLogsService _processLogsService;
 
         private DropSiteModelRepository _dropSiteModelRepository;
         private string _branchCode = Properties.Settings.Default.BRANCH_CODE;
+        //private string _dbSource = Properties.Settings.Default.;
 
         public SalesController()
         {
@@ -56,8 +65,10 @@ namespace SOFOS2.Sender.Sales.Controller
                     //string tokenForStockRequestService = await _colaTransactionService.SendAuthenticationAsync();
 
                     colaTransactionBulkUpsertRequest.CreateColaTransactionCommand = colaTransactionBulkUpsertRequest.CreateColaTransactionCommand;
+                    //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
                     var responseSendBulkUpsert = await _colaTransactionService.PostColaTransactionAsync(colaTransactionBulkUpsertRequest);
 
+                    //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
 
                     try
                     {
@@ -66,6 +77,10 @@ namespace SOFOS2.Sender.Sales.Controller
                             Console.WriteLine("Sending COLA transactions. . .");
                             await _colaTransactionService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaTransactionBase, extractedFile.Name));
                             await _processLogsService.ColaTransactionLogsServiceRequestAsync(colaTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+
+                            //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest);
+                            //_salesRepository = new SalesRepository();
+                            //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
                         }
                     }
                     catch (Exception ex)
@@ -85,6 +100,62 @@ namespace SOFOS2.Sender.Sales.Controller
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred: ColaTransactionToAPIAsync {ex.Message}");
+            }
+        }
+
+        //public async Task MarkAsInsertAsync()
+        //{
+        //    try
+        //    {
+
+        //        var lastIdLedgerLog = AppSettingHelper.GetSetting("lastIdLedgerLogSales");
+        //        int lastIdlegerFromLog = Int32.Parse(lastIdLedgerLog);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error occurred: ColaTransactionToAPIAsync {ex.Message}");
+        //    }
+        //}
+
+        public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        {
+            if (colaTransactions == null || !colaTransactions.Any())
+                return;
+
+            foreach (var transaction in colaTransactions)
+            {
+                try
+                {
+                    // Update header
+                    var headerParam = new Dictionary<string, object>
+                    {
+                        { "@transNum", transaction.TransNum }
+                    };
+
+                    using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
+                    {
+                        conn.ExecuteMySQL();
+                    }
+
+                    // Update each detail
+                    foreach (var detail in transaction.ColaTransactionDetail)
+                    {
+                        var detailParam = new Dictionary<string, object>
+                        {
+                            { "@detailNum", detail.DetailNum }
+                        };
+
+                        using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
+                        {
+                            conn.ExecuteMySQL();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle/log the exception as needed
+                    throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
+                }
             }
         }
 
@@ -133,6 +204,7 @@ namespace SOFOS2.Sender.Sales.Controller
 
                 }
             };
+            _salesRepository = new SalesRepository(SetDBSource());
             _colaTransactionService = new ColaTransactionService(SetSIDCAPIServiceSettings());
             //_sidcAPILogsService = new SIDCAPILogsService(SetSIDCLogServiceApiSettings());
             //_processLogsService = new ProcessLogsService();

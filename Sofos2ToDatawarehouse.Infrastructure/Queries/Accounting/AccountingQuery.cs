@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
 {
-    public class CancelChargeAmountQuery
+    public class ChargeAmountQuery
     {
         //public static StringBuilder GetAccountingQuery(AccountingEnum process)
         public static StringBuilder GetAccountingQuery(AccountingEnum process, DateTime? specificDate = null)

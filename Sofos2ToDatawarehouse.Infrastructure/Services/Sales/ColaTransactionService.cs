@@ -4,14 +4,17 @@ using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUp
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
+using Sofos2ToDatawarehouse.Infrastructure.DbContext;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.Sales.ColaTransactionQuery;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
 {
@@ -34,7 +37,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
 
                 WebRequest request = WebRequest.Create(webAddr);
 
-                request.Headers.Add("Authorization", "Bearer " + token);
+                var apitoken = _sidcAPIServiceSettings.APIToken;
+                request.Headers.Add("Authorization", "Bearer " + apitoken);
                 request.Method = "POST";
                 string postData = JsonConvert.SerializeObject(salesTransactionBulkUpsertRequest);
 
@@ -80,6 +84,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
 
                 // Create the request
                 WebRequest request = WebRequest.Create(webAddr);
+                var apitoken = _sidcAPIServiceSettings.APIToken;
+                request.Headers.Add("Authorization", "Bearer " + apitoken);
                 request.Method = "POST";
                 request.ContentType = "application/json";
 
@@ -114,6 +120,42 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             
             return colaTransactionBulkUpsertResponse;
         }
+
+        public async Task UpdateIsInsertedBatchAsync(List<(ColaTransactionEnum Type, string ReferenceNumber)> updates)
+        {
+            if (updates == null || updates.Count == 0)
+                return;
+
+            var commandList = new List<(string Query, Dictionary<string, object> Parameters)>();
+
+            foreach (var (type, referenceNumber) in updates)
+            {
+                string query = UpdateColaQuery(type).ToString();
+                var param = new Dictionary<string, object>();
+
+                if (type == ColaTransactionEnum.UpdateColaHeader)
+                    param.Add("@transNum", referenceNumber);
+                else if (type == ColaTransactionEnum.UpdateColaDetail)
+                    param.Add("@detailNum", referenceNumber);
+
+                commandList.Add((query, param));
+            }
+
+            //using (var context = new ApplicationContext(_dbSource))
+            //{
+            //    try
+            //    {
+            //        await context.ExecuteTransactionAsync(commandList); // You’ll need to implement this if it doesn't exist
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine($"Batch update failed: {ex.Message}");
+            //        // Optional: log or rethrow
+            //    }
+            //}
+        }
+
+
         #region Deserialize
 
         public List<CreateColaTransactionCommand> DeserializeObjectToColaTransactionBulkUpSertRequest(string jsonString)

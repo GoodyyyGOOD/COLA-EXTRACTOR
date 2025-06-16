@@ -1,4 +1,5 @@
-﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
+﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
+using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Domain.Entity.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.DbContext;
 using Sofos2ToDatawarehouse.Infrastructure.Queries.Sales;
@@ -74,7 +75,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
                                 Reference = dr["reference"].ToString(),
                                 CrossReference = dr["crossreference"].ToString(),
                                 //IsNoEffectOnInventory = dr["NoEffectOnInventory"] == DBNull.Value ? false : Convert.ToBoolean(dr["NoEffectOnInventory"]),
-                                IsNoEffectOnInventory = Convert.ToBoolean(dr["NoEffectOnInventory"]),
+                                IsNoEffectOnInventory = dr["NoEffectOnInventory"] == DBNull.Value ? 0 : Convert.ToInt32(dr["NoEffectOnInventory"]),
                                 CustomerType = dr["customerType"] == DBNull.Value ? 0 : dr["customerType"].ToString() == "Member" ? 1 : 2,
                                 MemberId = dr["memberId"].ToString(),
                                 MemberName = dr["memberName"].ToString(),
@@ -91,7 +92,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
                                 InterestPaid = dr["interestPaid"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["interestPaid"]),
                                 InterestBalance = dr["interestBalance"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["interestBalance"]),
                                 //Cancelled = dr["cancelled"] == DBNull.Value ? false : Convert.ToBoolean(dr["cancelled"]),
-                                Cancelled = Convert.ToBoolean(dr["cancelled"]),
+                                Cancelled = dr["cancelled"] == DBNull.Value ? 0 : Convert.ToInt32(dr["cancelled"]),
                                 Status = dr["status"].ToString(),
                                 //Extracted = dr["extracted"] == DBNull.Value ? false : Convert.ToBoolean(dr["extracted"]),
                                 Extracted = dr["extracted"].ToString(),
@@ -187,10 +188,62 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
             }
         }
 
+        //public void MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        {
+            if (colaTransactions == null || !colaTransactions.Any())
+                return;
+
+            foreach (var transaction in colaTransactions)
+            {
+                try
+                {
+                    // Update header
+                    var headerParam = new Dictionary<string, object>
+                    {
+                        { "@transNum", transaction.TransNum }
+                    };
+
+                    using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
+                    {
+                        conn.ExecuteMySQL();
+                    }
+
+                    // Update each detail
+                    foreach (var detail in transaction.ColaTransactionDetail)
+                    {
+                        var detailParam = new Dictionary<string, object>
+                        {
+                            { "@detailNum", detail.DetailNum }
+                        };
+
+                        using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
+                        {
+                            conn.ExecuteMySQL();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle/log the exception as needed
+                    throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
+                }
+            }
+        }
 
 
 
 
         #endregion GET
+
+        private string SetDBSource()
+        {
+            Global _global = new Global(
+                            Properties.Settings.Default.HOST,
+                            Properties.Settings.Default.DB_NAME,
+                            Properties.Settings.Default.DB_USERNAME,
+                            Properties.Settings.Default.DB_PASSWORD);
+            return _global.GetSourceDatabase();
+        }
     }
 }
