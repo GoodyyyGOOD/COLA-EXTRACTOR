@@ -80,7 +80,7 @@ namespace SOFOS2.Sender.Sales.Controller
 
                             //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest);
                             //_salesRepository = new SalesRepository();
-                            //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
+                            await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
                         }
                     }
                     catch (Exception ex)
@@ -117,47 +117,47 @@ namespace SOFOS2.Sender.Sales.Controller
         //    }
         //}
 
-        public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
-        {
-            if (colaTransactions == null || !colaTransactions.Any())
-                return;
+        //public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        //{
+        //    if (colaTransactions == null || !colaTransactions.Any())
+        //        return;
 
-            foreach (var transaction in colaTransactions)
-            {
-                try
-                {
-                    // Update header
-                    var headerParam = new Dictionary<string, object>
-                    {
-                        { "@transNum", transaction.TransNum }
-                    };
+        //    foreach (var transaction in colaTransactions)
+        //    {
+        //        try
+        //        {
+        //            // Update header
+        //            var headerParam = new Dictionary<string, object>
+        //            {
+        //                { "@transNum", transaction.TransNum }
+        //            };
 
-                    using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
-                    {
-                        conn.ExecuteMySQL();
-                    }
+        //            using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
+        //            {
+        //                conn.ExecuteMySQL();
+        //            }
 
-                    // Update each detail
-                    foreach (var detail in transaction.ColaTransactionDetail)
-                    {
-                        var detailParam = new Dictionary<string, object>
-                        {
-                            { "@detailNum", detail.DetailNum }
-                        };
+        //            // Update each detail
+        //            foreach (var detail in transaction.ColaTransactionDetail)
+        //            {
+        //                var detailParam = new Dictionary<string, object>
+        //                {
+        //                    { "@detailNum", detail.DetailNum }
+        //                };
 
-                        using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
-                        {
-                            conn.ExecuteMySQL();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle/log the exception as needed
-                    throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
-                }
-            }
-        }
+        //                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
+        //                {
+        //                    conn.ExecuteMySQL();
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Handle/log the exception as needed
+        //            throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
+        //        }
+        //    }
+        //}
 
         #region Private Methods
 
@@ -223,6 +223,16 @@ namespace SOFOS2.Sender.Sales.Controller
             //_sidcServiceApiSettings.AuthPassword = PasswordDecode(Properties.Settings.Default.API_AUTH_PASSWORD);
 
             return _sidcServiceApiSettings;
+        }
+
+        private string SetDBSource()
+        {
+            Global _global = new Global(
+                            Properties.Settings.Default.HOST,
+                            Properties.Settings.Default.DB_NAME,
+                            Properties.Settings.Default.DB_USERNAME,
+                            Properties.Settings.Default.DB_PASSWORD);
+            return _global.GetSourceDatabase();
         }
 
         private string PasswordDecode(string passwordEncoded)

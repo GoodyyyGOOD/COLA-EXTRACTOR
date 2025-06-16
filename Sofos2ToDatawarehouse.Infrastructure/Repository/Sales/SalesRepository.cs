@@ -236,14 +236,5 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
 
         #endregion GET
 
-        private string SetDBSource()
-        {
-            Global _global = new Global(
-                            Properties.Settings.Default.HOST,
-                            Properties.Settings.Default.DB_NAME,
-                            Properties.Settings.Default.DB_USERNAME,
-                            Properties.Settings.Default.DB_PASSWORD);
-            return _global.GetSourceDatabase();
-        }
     }
 }
