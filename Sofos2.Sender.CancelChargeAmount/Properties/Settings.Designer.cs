@@ -22,5 +22,65 @@ namespace Sofos2.Sender.CancelChargeAmount.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/spork-api/api/")]
+        public string BASE_URL {
+            get {
+                return ((string)(this["BASE_URL"]));
+            }
+            set {
+                this["BASE_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
+        public string API_CANCELCHARGEAMOUNT_URL {
+            get {
+                return ((string)(this["API_CANCELCHARGEAMOUNT_URL"]));
+            }
+            set {
+                this["API_CANCELCHARGEAMOUNT_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SIDC-1-2-1-3")]
+        public string BRANCH_CODE {
+            get {
+                return ((string)(this["BRANCH_CODE"]));
+            }
+            set {
+                this["BRANCH_CODE"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\DatawarehouseSyncher\\Dropsite")]
+        public string DROPSITE_FOLDER {
+            get {
+                return ((string)(this["DROPSITE_FOLDER"]));
+            }
+            set {
+                this["DROPSITE_FOLDER"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
+        public string API_TOKEN {
+            get {
+                return ((string)(this["API_TOKEN"]));
+            }
+            set {
+                this["API_TOKEN"] = value;
+            }
+        }
     }
 }

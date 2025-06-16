@@ -143,6 +143,7 @@ namespace SOFOS2.Sender.Sales.Controller
             var _sidcServiceApiSettings = new SIDCAPIServiceSettings();
             _sidcServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
             _sidcServiceApiSettings.SalesBaseUrl = Properties.Settings.Default.API_COLA_URL;
+            _sidcServiceApiSettings.APIToken = Properties.Settings.Default.API_TOKEN;
             //_sidcServiceApiSettings.IdentityUrl = Properties.Settings.Default.API_IDENTITY_BASE_URL;
             //_sidcServiceApiSettings.AccountingBaseUrl = Properties.Settings.Default.API_ACCOUNTING_BASE_URL;
             //_sidcServiceApiSettings.AuthTokenUrl = Properties.Settings.Default.API_AUTH_TOKEN_URL;

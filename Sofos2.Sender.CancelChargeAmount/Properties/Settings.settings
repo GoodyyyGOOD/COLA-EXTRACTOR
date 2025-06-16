@@ -1,6 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sofos2.Sender.CancelChargeAmount.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BASE_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
+    </Setting>
+    <Setting Name="API_CANCELCHARGEAMOUNT_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
+    </Setting>
+    <Setting Name="BRANCH_CODE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SIDC-1-2-1-3</Value>
+    </Setting>
+    <Setting Name="DROPSITE_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\DatawarehouseSyncher\Dropsite</Value>
+    </Setting>
+    <Setting Name="API_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

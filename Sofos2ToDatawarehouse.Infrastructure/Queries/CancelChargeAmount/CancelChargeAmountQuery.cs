@@ -20,7 +20,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount
 
                 case CancelChargeAmountEnum.CancelChargeAmountHeader:
 
-                    sQuery.Append(@"SELECT
+                    sQuery.Append($@"SELECT
                                     b.transNum,
 									a.memberid,
                                     a.transtype,

@@ -74,12 +74,24 @@ namespace Sofos2.Sender.Inventory.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_ACCOUNTING_URL {
+        public string API_INVENTORY_URL {
             get {
-                return ((string)(this["API_ACCOUNTING_URL"]));
+                return ((string)(this["API_INVENTORY_URL"]));
             }
             set {
-                this["API_ACCOUNTING_URL"] = value;
+                this["API_INVENTORY_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
+        public string API_TOKEN {
+            get {
+                return ((string)(this["API_TOKEN"]));
+            }
+            set {
+                this["API_TOKEN"] = value;
             }
         }
     }

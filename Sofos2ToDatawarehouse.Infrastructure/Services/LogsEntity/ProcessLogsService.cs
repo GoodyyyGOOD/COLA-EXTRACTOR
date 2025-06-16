@@ -1,4 +1,5 @@
-﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
+﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.CancelChargeAmount.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.LogsEntityPost;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.BulkUpSert;
@@ -119,6 +120,27 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
         }
 
         #endregion CancelTransaction
+        #region Cancel ChargeAmount
+
+        public async Task CancelChargeAmountLogsServiceRequestAsync(CancelChargeAmountBulkUpsertRequest cancelChargeAmountBulkUpsertRequest, SIDCAPILogsService sidcAPILogsService, string fileName, string branchCode)
+        {
+            string tokenForLogsService = await Task.Run(() => sidcAPILogsService.SendAuthenticationAsync());
+
+            LogsEntityPostRequest logsEntityPostRequest = new LogsEntityPostRequest()
+            {
+                TransactionType = "ACCOUNTING",
+                ServiceType = "ACCOUNTING SERVICE",
+                FileName = fileName,
+                FirstIdLedger = cancelChargeAmountBulkUpsertRequest.CreateCancelChargeAmountCommand.Min(o => o.TransNum),
+                LastIdLedger = cancelChargeAmountBulkUpsertRequest.CreateCancelChargeAmountCommand.Max(o => o.TransNum),
+                TransactionCount = cancelChargeAmountBulkUpsertRequest.CreateCancelChargeAmountCommand.Count(),
+                BranchCode = branchCode
+            };
+
+            await sidcAPILogsService.SendPostAsync(logsEntityPostRequest, tokenForLogsService);
+        }
+
+        #endregion
 
 
     }

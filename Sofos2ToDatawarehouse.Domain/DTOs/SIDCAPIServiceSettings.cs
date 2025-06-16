@@ -19,5 +19,6 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs
         public string AuthTokenUrl { get; set; }
         public string AuthUser { get; set; }
         public string AuthPassword { get; set; }
+        public string APIToken { get; set; }
     }
 }

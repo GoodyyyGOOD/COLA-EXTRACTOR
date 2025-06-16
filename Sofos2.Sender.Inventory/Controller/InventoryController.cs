@@ -141,16 +141,16 @@ namespace Sofos2.Sender.Inventory.Controller
 
         private SIDCAPIServiceSettings SetSIDCAPIServiceSettings()
         {
-            var _sidcServiceApiSettings = new SIDCAPIServiceSettings();
-            _sidcServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
-            _sidcServiceApiSettings.InventoryBaseUrl = Properties.Settings.Default.API_ACCOUNTING_URL;
-            //_sidcServiceApiSettings.IdentityUrl = Properties.Settings.Default.API_IDENTITY_BASE_URL;
+            var _sidcApiServiceSettings = new SIDCAPIServiceSettings();
+            _sidcApiServiceSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
+            _sidcApiServiceSettings.InventoryBaseUrl = Properties.Settings.Default.API_INVENTORY_URL;
+            _sidcApiServiceSettings.APIToken = Properties.Settings.Default.API_TOKEN;
             //_sidcServiceApiSettings.ItemsBaseUrl = Properties.Settings.Default.API_ACCOUNTING_BASE_URL;
             //_sidcServiceApiSettings.AuthTokenUrl = Properties.Settings.Default.API_AUTH_TOKEN_URL;
             //_sidcServiceApiSettings.AuthUser = Properties.Settings.Default.API_AUTH_USERNAME;
             //_sidcServiceApiSettings.AuthPassword = PasswordDecode(Properties.Settings.Default.API_AUTH_PASSWORD);
 
-            return _sidcServiceApiSettings;
+            return _sidcApiServiceSettings;
         }
 
         private string PasswordDecode(string passwordEncoded)

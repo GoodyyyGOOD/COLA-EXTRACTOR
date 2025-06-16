@@ -23,7 +23,7 @@ namespace Sofos2.Sender.Accounting
                 {
                     AccountingController controller = new AccountingController();
 
-                    System.Console.WriteLine("The sender will now begin.");
+                    System.Console.WriteLine("The charge amount sender will now begin.");
                     await controller.SendingChargeAmountToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
@@ -32,7 +32,7 @@ namespace Sofos2.Sender.Accounting
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
             }
 
 

@@ -23,7 +23,7 @@ namespace Sofos2.Sender.CancelTransaction
                 {
                     CancelTransactionController controller = new CancelTransactionController();
 
-                    System.Console.WriteLine("The sender will now begin.");
+                    System.Console.WriteLine("The cancel transaction sender will now begin.");
                     await controller.SendingCancelTransactionToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
@@ -32,7 +32,7 @@ namespace Sofos2.Sender.CancelTransaction
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
             }
         }
     }

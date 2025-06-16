@@ -15,7 +15,7 @@
       <Value Profile="(Default)">http://161.49.105.231:7557/spork_api_staging/api/</Value>
     </Setting>
     <Setting Name="API_TOKEN" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
     </Setting>
   </Settings>
 </SettingsFile>

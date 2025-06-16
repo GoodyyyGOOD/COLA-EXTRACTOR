@@ -14,5 +14,8 @@
     <Setting Name="API_COLASTUB_URL" Type="System.String" Scope="User">
       <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
     </Setting>
+    <Setting Name="API_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

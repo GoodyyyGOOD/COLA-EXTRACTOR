@@ -23,7 +23,7 @@ namespace SOFOS2.Sender.Sales
                 {
                     SalesController controller = new SalesController();
 
-                    System.Console.WriteLine("The sender will now begin.");
+                    System.Console.WriteLine("The sales sender will now begin.");
                     await controller.SendingColaTransactionToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
@@ -32,7 +32,7 @@ namespace SOFOS2.Sender.Sales
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
             }
 
 

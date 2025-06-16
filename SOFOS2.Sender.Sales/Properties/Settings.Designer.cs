@@ -73,7 +73,7 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
         public string API_TOKEN {
             get {
                 return ((string)(this["API_TOKEN"]));

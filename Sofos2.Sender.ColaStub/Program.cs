@@ -23,7 +23,7 @@ namespace Sofos2.Sender.ColaStub
                 {
                     ColaStubController controller = new ColaStubController();
 
-                    System.Console.WriteLine("The sender will now begin.");
+                    System.Console.WriteLine("The colastub sender will now begin.");
                     await controller.SendingColaStubToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
@@ -32,7 +32,7 @@ namespace Sofos2.Sender.ColaStub
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
             }
         }
 

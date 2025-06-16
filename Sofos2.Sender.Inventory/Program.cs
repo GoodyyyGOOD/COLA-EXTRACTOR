@@ -23,7 +23,7 @@ namespace Sofos2.Sender.Inventory
                 {
                     InventoryController controller = new InventoryController();
 
-                    System.Console.WriteLine("The sender will now begin.");
+                    System.Console.WriteLine("The inventory sender will now begin.");
                     await controller.SendingItemsToAPIAsync();
 
                     Console.WriteLine("\nAll files have been processed.");
@@ -32,7 +32,7 @@ namespace Sofos2.Sender.Inventory
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
             }
         }
     }

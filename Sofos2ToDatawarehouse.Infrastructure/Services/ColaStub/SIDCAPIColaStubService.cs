@@ -32,6 +32,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.ColaStub
 
                 WebRequest request = WebRequest.Create(webAddr);
 
+                token = _sidcAPIServiceSettings.APIToken;
+
                 request.Method = "POST";
                 string postData = JsonConvert.SerializeObject(sidcTokenRequest);
 
