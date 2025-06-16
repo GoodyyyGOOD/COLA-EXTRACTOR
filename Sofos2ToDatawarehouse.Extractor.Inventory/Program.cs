@@ -23,7 +23,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Inventory
             {
                 try
                 {
-                    System.Console.WriteLine("The extractor will now begin.");
+                    System.Console.WriteLine("The inventory extractor will now begin.");
                     ItemController controller = new ItemController();
                     controller.ProcessExtraction();
 
@@ -33,7 +33,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Inventory
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
 
             }
         }

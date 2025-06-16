@@ -47,6 +47,9 @@
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\BulkUpSert\ChargeAmountBulkUpsertRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\BulkUpSert\ChargeAmountBulkUpsertResponse.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Accounting\ChargeAmount\Create\CreateChargeAmountCommand.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Accounting\CancelChargeAmount\BulkUpSert\CancelChargeAmountBulkUpsertRequest.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Accounting\CancelChargeAmount\BulkUpSert\CancelChargeAmountBulkUpsertResponse.cs" />
+    <Compile Include="DTOs\SIDCAPI%27s\Accounting\CancelChargeAmount\Create\CreateCancelChargeAmountCommand.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\BulkUpSert\ItemsBulkUpsertRequest.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\BulkUpSert\ItemsBulkUpsertResponse.cs" />
     <Compile Include="DTOs\SIDCAPI%27s\Inventory\Items\Create\CreateItemsCommand.cs" />

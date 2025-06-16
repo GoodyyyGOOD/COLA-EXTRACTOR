@@ -23,7 +23,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales
             {
                 try
                 {
-                    System.Console.WriteLine("The extractor will now begin.");
+                    System.Console.WriteLine("The sales extractor will now begin.");
                     ColaController controller = new ColaController();
                     controller.ProcessExtraction();
 
@@ -33,7 +33,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
 
             }
 

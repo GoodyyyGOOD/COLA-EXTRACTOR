@@ -44,8 +44,8 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity
 
             LogsEntityPostRequest logsEntityPostRequest = new LogsEntityPostRequest()
             {
-                TransactionType = "SALES",
-                ServiceType = "SALES SERVICE",
+                TransactionType = "ACCOUNTING",
+                ServiceType = "ACCOUNTING SERVICE",
                 FileName = fileName,
                 FirstIdLedger = chargeAmountBulkUpsertRequest.CreateChargeAmountCommand.Min(o => o.TransNum),
                 LastIdLedger = chargeAmountBulkUpsertRequest.CreateChargeAmountCommand.Max(o => o.TransNum),

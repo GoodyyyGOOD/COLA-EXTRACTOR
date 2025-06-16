@@ -2,7 +2,7 @@
 using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Domain.Entity.Inventory;
 using Sofos2ToDatawarehouse.Infrastructure.DbContext;
-using Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting;
+using Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount;
 using Sofos2ToDatawarehouse.Infrastructure.Queries.Inventory;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using System;
@@ -10,18 +10,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting.CancelChargeAmountQuery;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount.CancelChargeAmountQuery;
 using static Sofos2ToDatawarehouse.Infrastructure.Queries.Inventory.ItemQuery;
 
-namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting
+namespace Sofos2ToDatawarehouse.Infrastructure.Repository.CancelChargeAmount
 {
-    public class AccountingRepository
+    public class CancelChargeAmountRepository
     {
         private GlobalRepository _globalRepository;
         public Company _company { get; set; }
         private string _dbSource { get; set; }
 
-        public AccountingRepository(string dbSource)
+        public CancelChargeAmountRepository(string dbSource)
         {
             _dbSource = dbSource;
             _globalRepository = new GlobalRepository(_dbSource);
@@ -30,16 +30,16 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting
 
         #region GET
 
-        public List<AccountDetails> GetAccountingData(int maxFetchLimit, int startAtTransnum)
+        public List<AccountDetails> GetCancelChargeAmountData(int maxFetchLimit, int startAtTransnum)
         {
-            var accountingHeader = GetAccountingHeader(startAtTransnum, maxFetchLimit);
+            var CancelChargeAmountHeader = GetCancelChargeAmountHeader(startAtTransnum, maxFetchLimit);
 
 
 
-            return accountingHeader;
+            return CancelChargeAmountHeader;
         }
 
-        private List<AccountDetails> GetAccountingHeader(int lastTransnum, int maxFetchLimit)
+        private List<AccountDetails> GetCancelChargeAmountHeader(int lastTransnum, int maxFetchLimit)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting
                     { "@limitTransaction", maxFetchLimit },
                 };
 
-                using (var conn = new ApplicationContext(_dbSource, CancelChargeAmountQuery.GetAccountingQuery(AccountingEnum.AccountingHeader), param))
+                using (var conn = new ApplicationContext(_dbSource, CancelChargeAmountQuery.GetCancelChargeAmountQuery(CancelChargeAmountEnum.CancelChargeAmountHeader), param))
                 {
                     using (var dr = conn.MySQLReader())
                     {

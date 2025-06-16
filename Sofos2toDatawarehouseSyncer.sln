@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounting", "Accounting", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Inventory", "Inventory", "{83D188DA-DD05-4EFB-81CF-7A7892DAF544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Accounting", "Sofos2ToDatawarehouse.Extrator.Accounting\Sofos2ToDatawarehouse.Extractor.Accounting.csproj", "{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Accounting", "Sofos2ToDatawarehouse.Extractor.Accounting\Sofos2ToDatawarehouse.Extractor.Accounting.csproj", "{B0954CAE-6BDF-4C22-88B7-E7F7C9E30525}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.Inventory", "Sofos2ToDatawarehouse.Extractor.Inventory\Sofos2ToDatawarehouse.Extractor.Inventory.csproj", "{E3B0770B-83D0-424A-B795-28C4D8DEB149}"
 EndProject
@@ -54,6 +54,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.CancelTransaction", "Sofos2.Sender.CancelTransaction\Sofos2.Sender.CancelTransaction.csproj", "{1AE867F3-9134-4DF0-95DE-7738BA59DBA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.ColaStub", "Sofos2.Sender.ColaStub\Sofos2.Sender.ColaStub.csproj", "{332AE4E2-FCDB-44C5-A69F-9C56707021AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CancelChargeAmount", "CancelChargeAmount", "{8B3544ED-77F8-4B51-8B20-48B05A83E1CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2ToDatawarehouse.Extractor.CancelChargeAmount", "Sofos2ToDatawarehouse.Extractor.CancelChargeAmount\Sofos2ToDatawarehouse.Extractor.CancelChargeAmount.csproj", "{32FAA690-E31D-4810-830D-A3551752A844}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CancelChargeAmount", "CancelChargeAmount", "{14BF5C39-9D77-4176-A142-85F5CF263894}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sofos2.Sender.CancelChargeAmount", "Sofos2.Sender.CancelChargeAmount\Sofos2.Sender.CancelChargeAmount.csproj", "{254857DA-A06C-44D3-AD42-78DBCAEE793C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +117,14 @@ Global
 		{332AE4E2-FCDB-44C5-A69F-9C56707021AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{332AE4E2-FCDB-44C5-A69F-9C56707021AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{332AE4E2-FCDB-44C5-A69F-9C56707021AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32FAA690-E31D-4810-830D-A3551752A844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32FAA690-E31D-4810-830D-A3551752A844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32FAA690-E31D-4810-830D-A3551752A844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32FAA690-E31D-4810-830D-A3551752A844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{254857DA-A06C-44D3-AD42-78DBCAEE793C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254857DA-A06C-44D3-AD42-78DBCAEE793C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{254857DA-A06C-44D3-AD42-78DBCAEE793C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{254857DA-A06C-44D3-AD42-78DBCAEE793C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +152,10 @@ Global
 		{F9802C04-B511-4539-8E62-65CC93BE1B77} = {BDB2EF34-8498-4AD4-B252-137280B986DF}
 		{1AE867F3-9134-4DF0-95DE-7738BA59DBA2} = {F9802C04-B511-4539-8E62-65CC93BE1B77}
 		{332AE4E2-FCDB-44C5-A69F-9C56707021AB} = {CAF4D26F-B4C2-45FF-B8EB-E0E864E8E03C}
+		{8B3544ED-77F8-4B51-8B20-48B05A83E1CD} = {2B41A9BC-62C3-4272-A15A-66FF3D9C6CB8}
+		{32FAA690-E31D-4810-830D-A3551752A844} = {8B3544ED-77F8-4B51-8B20-48B05A83E1CD}
+		{14BF5C39-9D77-4176-A142-85F5CF263894} = {BDB2EF34-8498-4AD4-B252-137280B986DF}
+		{254857DA-A06C-44D3-AD42-78DBCAEE793C} = {14BF5C39-9D77-4176-A142-85F5CF263894}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B792FBC-B8C2-415D-8EAE-05D242D43842}

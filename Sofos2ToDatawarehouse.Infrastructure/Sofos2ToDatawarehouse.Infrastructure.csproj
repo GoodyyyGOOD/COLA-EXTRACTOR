@@ -84,11 +84,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Accounting\AccountingQuery.cs" />
+    <Compile Include="Queries\CancelChargeAmount\CancelChargeAmountQuery.cs" />
     <Compile Include="Queries\CancelTransaction\CancelTransactionQuery.cs" />
     <Compile Include="Queries\ColaStub\ColaStubQuery.cs" />
     <Compile Include="Queries\Inventory\ItemQuery.cs" />
     <Compile Include="Queries\Sales\ColaTransactionQuery.cs" />
     <Compile Include="Repository\Accounting\AccountingRepository.cs" />
+    <Compile Include="Repository\CancelChargeAmount\CancelChargeAmountRepository.cs" />
     <Compile Include="Repository\CancelTransaction\CancelTransactionRepository.cs" />
     <Compile Include="Repository\ColaStub\ColaStubRepository.cs" />
     <Compile Include="Repository\General\DropSiteModelRepository.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Repository\General\LogRepository.cs" />
     <Compile Include="Repository\Inventory\InventoryRepository.cs" />
     <Compile Include="Repository\Logs\Accounting\AccountingLogRepository.cs" />
+    <Compile Include="Repository\Logs\CancelChargeAmount\CancelChargeAmountLogRepository.cs" />
     <Compile Include="Repository\Logs\CancelTransaction\CancelTransactionLogRepository.cs" />
     <Compile Include="Repository\Logs\ColaStub\ColaStubLogRepository.cs" />
     <Compile Include="Repository\Logs\Inventory\InventoryLogRepository.cs" />
@@ -104,6 +107,8 @@
     <Compile Include="Seeds\DataSourceSeeds.cs" />
     <Compile Include="Services\Accounting\AccountingService.cs" />
     <Compile Include="Services\Accounting\SIDCAPIAccountingService.cs" />
+    <Compile Include="Services\CancelChargeAmount\CancelChargeAmountService.cs" />
+    <Compile Include="Services\CancelChargeAmount\SIDCAPICancelChargeAmountService.cs" />
     <Compile Include="Services\CancelTransaction\CancelTransactionService.cs" />
     <Compile Include="Services\CancelTransaction\SIDCAPICancelTransactionService.cs" />
     <Compile Include="Services\ColaStub\ColaStubService.cs" />

@@ -17,9 +17,8 @@ namespace Sofos2ToDatawarehouse.Domain.Entity.General
         public string DropSitePathColaStub { get; set; } = @"COLASTUB\"; 
         public string DropSitePathCancelTransaction { get; set; } = @"CANCELTRANSACTION\";
         public string DropSitePathInventory { get; set; } = @"INVENTORY\";
-
         public string DropSitePathAccounting { get; set; } = @"ACCOUNTING\";
-
+        public string DropSitePathCancelChargeAmount { get; set; } = @"CANCELCHARGEAMOUNT\";
         public string DropSitePathLog { get; set; } = @"LOGS\";
 
         public string ModuleDropSitePath { get; set; }

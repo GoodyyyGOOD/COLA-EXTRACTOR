@@ -47,7 +47,7 @@ namespace Sofos2.Sender.Accounting.Controller
 
                     foreach (FileInfo extractedFile in extractedFiles)
                     {
-                    ChargeAmountBulkUpsertRequest chargeAmountBulkUpsertRequest = new ChargeAmountBulkUpsertRequest();
+                        ChargeAmountBulkUpsertRequest chargeAmountBulkUpsertRequest = new ChargeAmountBulkUpsertRequest();
 
                         string jsonString = File.ReadAllText(extractedFile.FullName);
 

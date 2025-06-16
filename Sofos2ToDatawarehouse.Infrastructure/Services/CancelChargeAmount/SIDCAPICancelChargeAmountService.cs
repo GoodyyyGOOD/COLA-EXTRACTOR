@@ -9,9 +9,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
+namespace Sofos2ToDatawarehouse.Infrastructure.Services.CancelChargeAmount
 {
-    public class SIDCAPISaleService
+    public class SIDCAPICancelChargeAmountService
     {
         public string webAddr = null;
         public SIDCAPIServiceSettings _sidcAPIServiceSettings { get; set; }
@@ -31,8 +31,6 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
                 webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.IdentityUrl, _sidcAPIServiceSettings.AuthTokenUrl);
 
                 WebRequest request = WebRequest.Create(webAddr);
-
-
 
                 request.Method = "POST";
                 string postData = JsonConvert.SerializeObject(sidcTokenRequest);

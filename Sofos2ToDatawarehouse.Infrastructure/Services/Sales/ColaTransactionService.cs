@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -108,9 +109,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Sales
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to POST ChargeAmount: {ex.Message}");
+                throw new Exception($"Failed to POST Cola Transaction: {ex.Message}");
             }
-
+            
             return colaTransactionBulkUpsertResponse;
         }
         #region Deserialize

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Sofos2ToDatawarehouse.Extrator.Accounting")]
+[assembly: AssemblyTitle("Sofos2ToDatawarehouse.Extractor.CancelChargeAmount")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Sofos2ToDatawarehouse.Extrator.Accounting")]
+[assembly: AssemblyProduct("Sofos2ToDatawarehouse.Extractor.CancelChargeAmount")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b0954cae-6bdf-4c22-88b7-e7f7c9e30525")]
+[assembly: Guid("32faa690-e31d-4810-830d-a3551752a844")]
 
 // Version information for an assembly consists of the following four values:
 //

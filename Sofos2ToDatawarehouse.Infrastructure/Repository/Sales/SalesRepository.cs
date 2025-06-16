@@ -188,6 +188,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
         }
 
 
+
+
+
         #endregion GET
     }
 }

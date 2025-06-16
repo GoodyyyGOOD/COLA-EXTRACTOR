@@ -1,4 +1,4 @@
-﻿using Sofos2ToDatawarehouse.Extractor.ColaStub.Controller;
+﻿using Sofos2ToDatawarehouse.Extractor.Accounting.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sofos2ToDatawarehouse.Extractor.ColaStub
+namespace Sofos2ToDatawarehouse.Extractor.Accounting
 {
     internal class Program
     {
-        private static async Task Main(string[] args)
+         private static async Task Main(string[] args)
         {
             if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
@@ -23,11 +23,11 @@ namespace Sofos2ToDatawarehouse.Extractor.ColaStub
             {
                 try
                 {
-                    System.Console.WriteLine("The cola stub extractor will now begin.");
-                    ColaStubController controller = new ColaStubController();
+                    System.Console.WriteLine("The accounting extractor will now begin.");
+                    ChargeAmountController controller = new ChargeAmountController();
                     controller.ProcessExtraction();
 
-                    Console.WriteLine("\nAll files have been extracted successfully.");
+                    //Console.WriteLine("\nAll files have been extracted successfully.");
                 }
                 catch (Exception e)
                 {
@@ -36,8 +36,6 @@ namespace Sofos2ToDatawarehouse.Extractor.ColaStub
                 Thread.Sleep(3000);
 
             }
-
         }
-    
     }
 }

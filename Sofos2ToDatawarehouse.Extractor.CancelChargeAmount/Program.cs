@@ -1,4 +1,4 @@
-﻿using Sofos2ToDatawarehouse.Extrator.Accounting.Controller;
+﻿using Sofos2ToDatawarehouse.Extractor.CancelChargeAmount.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sofos2ToDatawarehouse.Extrator.Accounting
+namespace Sofos2ToDatawarehouse.Extractor.CancelChargeAmount
 {
     internal class Program
     {
-         private static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             if (System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
@@ -23,8 +23,8 @@ namespace Sofos2ToDatawarehouse.Extrator.Accounting
             {
                 try
                 {
-                    System.Console.WriteLine("The extractor will now begin.");
-                    ChargeAmountController controller = new ChargeAmountController();
+                    System.Console.WriteLine("The cancel charge amount extractor will now begin.");
+                    CancelChargeAmountController controller = new CancelChargeAmountController();
                     controller.ProcessExtraction();
 
                     //Console.WriteLine("\nAll files have been extracted successfully.");
@@ -33,7 +33,7 @@ namespace Sofos2ToDatawarehouse.Extrator.Accounting
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
 
             }
         }

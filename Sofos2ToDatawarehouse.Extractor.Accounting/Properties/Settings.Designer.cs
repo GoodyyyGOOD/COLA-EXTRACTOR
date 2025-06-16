@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SOFOS2.Sender.Sales.Properties {
+namespace Sofos2ToDatawarehouse.Extractor.Accounting.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -25,25 +25,37 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_COLA_URL {
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string HOST {
             get {
-                return ((string)(this["API_COLA_URL"]));
+                return ((string)(this["HOST"]));
             }
             set {
-                this["API_COLA_URL"] = value;
+                this["HOST"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SIDC-1-2-1-3")]
-        public string BRANCH_CODE {
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        public string DB_USERNAME {
             get {
-                return ((string)(this["BRANCH_CODE"]));
+                return ((string)(this["DB_USERNAME"]));
             }
             set {
-                this["BRANCH_CODE"] = value;
+                this["DB_USERNAME"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c3VwZXJ2aXNvcg==")]
+        public string DB_PASSWORD {
+            get {
+                return ((string)(this["DB_PASSWORD"]));
+            }
+            set {
+                this["DB_PASSWORD"] = value;
             }
         }
         
@@ -61,25 +73,25 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://161.49.105.231:7557/spork_api_staging/api/")]
-        public string BASE_URL {
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string MAX_FETCH_LIMIT {
             get {
-                return ((string)(this["BASE_URL"]));
+                return ((string)(this["MAX_FETCH_LIMIT"]));
             }
             set {
-                this["BASE_URL"] = value;
+                this["MAX_FETCH_LIMIT"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string API_TOKEN {
+        [global::System.Configuration.DefaultSettingValueAttribute("sofos2_main")]
+        public string DB_NAME {
             get {
-                return ((string)(this["API_TOKEN"]));
+                return ((string)(this["DB_NAME"]));
             }
             set {
-                this["API_TOKEN"] = value;
+                this["DB_NAME"] = value;
             }
         }
     }

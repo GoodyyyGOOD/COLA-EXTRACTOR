@@ -14,6 +14,7 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs
         public string SalesBaseUrl { get; set; }
         public string ColaStubBaseUrl { get; set; }
         public string CancelTransactionBaseUrl { get; set; }
+        public string CancelChargeAmountBaseUrl { get; set; }
         public string IdentityUrl { get; set; }
         public string AuthTokenUrl { get; set; }
         public string AuthUser { get; set; }

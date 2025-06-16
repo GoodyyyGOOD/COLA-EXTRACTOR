@@ -1,37 +1,36 @@
 ﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.CancelChargeAmount;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Accounting;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.CancelChargeAmount;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Sofos2ToDatawarehouse.Extrator.Accounting.Properties;
 using Sofos2ToDatawarehouse.Infrastructure.Helper;
 
-namespace Sofos2ToDatawarehouse.Extrator.Accounting.Controller
+namespace Sofos2ToDatawarehouse.Extractor.CancelChargeAmount.Controller
 {
-    public class ChargeAmountController
+    public class CancelChargeAmountController
     {
         #region Private Declaration
 
-        private string _module = "ACCOUNTING";
+        private string _module = "CANCELCHARGEAMOUNT";
 
-        private string dropSitePathExtractedAccountingBase = string.Empty;
-        private string dropSitePathTransferredAccountingBase = string.Empty;
-        private string dropSitePathLogsAccountingBase = string.Empty;
+        private string dropSitePathExtractedCancelChargeAmountBase = string.Empty;
+        private string dropSitePathTransferredCancelChargeAmountBase = string.Empty;
+        private string dropSitePathLogsCancelChargeAmountBase = string.Empty;
 
-        private AccountingRepository _accountingRepository;
-        private AccountingLogRepository _accountingLogRepository;
+        private CancelChargeAmountRepository _cancelChargeAmountRepository;
+        private CancelChargeAmountLogRepository _cancelChargeAmountLogRepository;
         private DropSiteModelRepository _dropSiteModelRepository;
 
         #endregion Private Declaration
 
-        public ChargeAmountController()
+        public CancelChargeAmountController()
         {
-            InitilizeDropSiteAndAccountingRepositories();
+            InitilizeDropSiteAndCancelChargeAmountRepositories();
             InitializeFolders();
         }
 
@@ -43,11 +42,11 @@ namespace Sofos2ToDatawarehouse.Extrator.Accounting.Controller
             {
                 var lastIdLedgerLog = AppSettingHelper.GetSetting("lastTransnumLogChargeAmount");
                 int lastIdlegerFromLog = Int32.Parse(lastIdLedgerLog);
-                var accountingHeader = _accountingRepository.GetAccountingData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
+                var cancelChargeAmountHeader = _cancelChargeAmountRepository.GetCancelChargeAmountData(_dropSiteModelRepository.DropSiteModel.QueryMaxFetchLimit, lastIdlegerFromLog);
 
-                if (accountingHeader != null)
+                if (cancelChargeAmountHeader != null)
                 {
-                    _accountingLogRepository.ExportToJSONFile(accountingHeader, _module, _accountingRepository._company.BranchCode, dropSitePathExtractedAccountingBase, dropSitePathLogsAccountingBase);
+                    _cancelChargeAmountLogRepository.ExportToJSONFile(cancelChargeAmountHeader, _module, _cancelChargeAmountRepository._company.BranchCode, dropSitePathExtractedCancelChargeAmountBase, dropSitePathLogsCancelChargeAmountBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else
@@ -78,24 +77,24 @@ namespace Sofos2ToDatawarehouse.Extrator.Accounting.Controller
         private void InitializeFolders()
         {
             string dropSitePathExtractedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathExtracted);
-            dropSitePathExtractedAccountingBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathExtractedAccountingBase))
-                Directory.CreateDirectory(dropSitePathExtractedAccountingBase);
+            dropSitePathExtractedCancelChargeAmountBase = Path.Combine(dropSitePathExtractedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathCancelChargeAmount);
+            if (!Directory.Exists(dropSitePathExtractedCancelChargeAmountBase))
+                Directory.CreateDirectory(dropSitePathExtractedCancelChargeAmountBase);
 
             string dropSitePathTransferedBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathTransferred);
-            dropSitePathTransferredAccountingBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathTransferredAccountingBase))
-                Directory.CreateDirectory(dropSitePathTransferredAccountingBase);
+            dropSitePathTransferredCancelChargeAmountBase = Path.Combine(dropSitePathTransferedBase, _dropSiteModelRepository.DropSiteModel.DropSitePathCancelChargeAmount);
+            if (!Directory.Exists(dropSitePathTransferredCancelChargeAmountBase))
+                Directory.CreateDirectory(dropSitePathTransferredCancelChargeAmountBase);
 
             string dropSitePathLogsBase = Path.Combine(_dropSiteModelRepository.DropSiteModel.DropSitePath, _dropSiteModelRepository.DropSiteModel.DropSitePathLog);
-            dropSitePathLogsAccountingBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathAccounting);
-            if (!Directory.Exists(dropSitePathLogsAccountingBase))
-                Directory.CreateDirectory(dropSitePathLogsAccountingBase);
+            dropSitePathLogsCancelChargeAmountBase = Path.Combine(dropSitePathLogsBase, _dropSiteModelRepository.DropSiteModel.DropSitePathCancelChargeAmount);
+            if (!Directory.Exists(dropSitePathLogsCancelChargeAmountBase))
+                Directory.CreateDirectory(dropSitePathLogsCancelChargeAmountBase);
         }
 
 
 
-        private void InitilizeDropSiteAndAccountingRepositories()
+        private void InitilizeDropSiteAndCancelChargeAmountRepositories()
         {
             _dropSiteModelRepository = new DropSiteModelRepository()
             {
@@ -105,8 +104,8 @@ namespace Sofos2ToDatawarehouse.Extrator.Accounting.Controller
                     QueryMaxFetchLimit = Convert.ToInt32(Properties.Settings.Default.MAX_FETCH_LIMIT)
                 }
             };
-            _accountingRepository = new AccountingRepository(SetDBSource());
-            _accountingLogRepository = new AccountingLogRepository();
+            _cancelChargeAmountRepository = new CancelChargeAmountRepository(SetDBSource());
+            _cancelChargeAmountLogRepository = new CancelChargeAmountLogRepository();
         }
 
         #endregion Private Methods

@@ -31,7 +31,7 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Crea
         public decimal InterestBalance { get; set; }
         public bool Cancelled { get; set; }
         public string Status { get; set; }
-        public bool Extracted { get; set; }
+        public string Extracted { get; set; }
         public string ColaReference { get; set; }
         public string SegmentCode { get; set; }
         public string BusinessSegmentCode { get; set; }

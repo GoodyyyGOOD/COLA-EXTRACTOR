@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SOFOS2.Sender.Sales.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="BASE_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
-    </Setting>
     <Setting Name="API_COLA_URL" Type="System.String" Scope="User">
       <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
     </Setting>
@@ -13,6 +10,12 @@
     </Setting>
     <Setting Name="DROPSITE_FOLDER" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\DatawarehouseSyncher\Dropsite</Value>
+    </Setting>
+    <Setting Name="BASE_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://161.49.105.231:7557/spork_api_staging/api/</Value>
+    </Setting>
+    <Setting Name="API_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

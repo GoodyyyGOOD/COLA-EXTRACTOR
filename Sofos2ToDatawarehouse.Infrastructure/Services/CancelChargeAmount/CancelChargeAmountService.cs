@@ -7,34 +7,33 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.ChargeAmount.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Inventory.Items.Create;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.CancelChargeAmount.BulkUpSert;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Accounting.CancelChargeAmount.Create;
 
-namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
+namespace Sofos2ToDatawarehouse.Infrastructure.Services.CancelChargeAmount
 {
-    public class InventoryService : SIDCAPIInventoryService
+    public class CancelChargeAmountService : SIDCAPICancelChargeAmountService
     {
-        //private string ItemsBulkUpSert = "v1/inventory/transactions/InventoryTransaction/bulk-update-insert";
+        //private string CancelChargeAmountBulkUpSert = "v1/CancelChargeAmount/transactions/CancelChargeAmountTransaction/bulk-update-insert";
 
-        public InventoryService(SIDCAPIServiceSettings sidcAPIServiceSettings)
+        public CancelChargeAmountService(SIDCAPIServiceSettings sidcAPIServiceSettings)
         {
             _sidcAPIServiceSettings = sidcAPIServiceSettings;
         }
 
-        //public async Task<ItemsBulkUpsertResponse> SendBulkUpSertAsync(ItemsBulkUpsertRequest itemsBulkUpsertRequest, string token)
+        //public async Task<CancelChargeAmountBulkUpsertResponse> SendBulkUpSertAsync(CancelChargeAmountBulkUpsertRequest CancelChargeAmountBulkUpsertRequest)
         //{
-        //    var itemsBulkUpsertResponse = new ItemsBulkUpsertResponse();
+        //    var CancelChargeAmountBulkUpsertResponse = new CancelChargeAmountBulkUpsertResponse();
 
         //    try
         //    {
-        //        webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.InventoryBaseUrl, ItemsBulkUpSert);
+        //        webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.InventoryBaseUrl, CancelChargeAmountBulkUpSert);
 
         //        WebRequest request = WebRequest.Create(webAddr);
 
         //        request.Headers.Add("Authorization", "Bearer " + token);
         //        request.Method = "POST";
-        //        string postData = JsonConvert.SerializeObject(itemsBulkUpsertRequest);
+        //        string postData = JsonConvert.SerializeObject(CancelChargeAmountBulkUpsertRequest);
 
         //        byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
@@ -56,7 +55,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
 
         //            string responseFromServer = await reader.ReadToEndAsync();
 
-        //            itemsBulkUpsertResponse = JsonConvert.DeserializeObject<ItemsBulkUpsertResponse>(responseFromServer);
+        //            CancelChargeAmountBulkUpsertResponse = JsonConvert.DeserializeObject<CancelChargeAmountBulkUpsertResponse>(responseFromServer);
         //        }
         //        response.Close();
         //    }
@@ -64,17 +63,16 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
         //    {
         //        throw new Exception(ex.Message);
         //    }
-        //    return itemsBulkUpsertResponse;
+        //    return CancelChargeAmountBulkUpsertResponse;
         //}
-
-        public async Task<ItemsBulkUpsertResponse> PostItemsAsync(ItemsBulkUpsertRequest itemsBulkUpsertRequest)
+        public async Task<CancelChargeAmountBulkUpsertResponse> PostCancelChargeAmountAsync(CancelChargeAmountBulkUpsertRequest CancelChargeAmountBulkUpsertRequest)
         {
-            var itemsBulkUpsertResponse = new ItemsBulkUpsertResponse();
+            var CancelChargeAmountBulkUpsertResponse = new CancelChargeAmountBulkUpsertResponse();
 
             try
             {
                 // Construct the URL
-                webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.BaseUrl, _sidcAPIServiceSettings.InventoryBaseUrl);
+                webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.BaseUrl, _sidcAPIServiceSettings.CancelChargeAmountBaseUrl);
 
                 // Create the request
                 WebRequest request = WebRequest.Create(webAddr);
@@ -82,7 +80,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
                 request.ContentType = "application/json";
 
                 // Serialize the request body
-                string postData = JsonConvert.SerializeObject(itemsBulkUpsertRequest);
+                string postData = JsonConvert.SerializeObject(CancelChargeAmountBulkUpsertRequest);
                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
                 request.ContentLength = byteArray.Length;
 
@@ -100,24 +98,24 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
                         using (StreamReader reader = new StreamReader(stream))
                         {
                             string responseFromServer = await reader.ReadToEndAsync();
-                            itemsBulkUpsertResponse = JsonConvert.DeserializeObject<ItemsBulkUpsertResponse>(responseFromServer);
+                            CancelChargeAmountBulkUpsertResponse = JsonConvert.DeserializeObject<CancelChargeAmountBulkUpsertResponse>(responseFromServer);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to POST inventory: {ex.Message}");
+                throw new Exception($"Failed to POST CancelChargeAmount: {ex.Message}");
             }
 
-            return itemsBulkUpsertResponse;
+            return CancelChargeAmountBulkUpsertResponse;
         }
 
         #region Deserialize
 
-        public List<CreateItemsCommand> DeserializeObjectToItemsBulkUpSertRequest(string jsonString)
+        public List<CreateCancelChargeAmountCommand> DeserializeObjectToCancelChargeAmountBulkUpSertRequest(string jsonString)
         {
-            return JsonConvert.DeserializeObject<List<CreateItemsCommand>>(jsonString);
+            return JsonConvert.DeserializeObject<List<CreateCancelChargeAmountCommand>>(jsonString);
         }
 
         #endregion Deserialize
