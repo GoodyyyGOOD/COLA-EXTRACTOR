@@ -33,6 +33,7 @@ namespace Sofos2.Sender.Accounting
                     Console.WriteLine(e.Message);
                 }
                 Thread.Sleep(3000);
+                System.Environment.Exit(1);
             }
 
 

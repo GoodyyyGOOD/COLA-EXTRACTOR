@@ -72,7 +72,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.ColaStub
             try
             {
                 // Construct the URL
-                webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.BaseUrl, _sidcAPIServiceSettings.AccountingBaseUrl);
+                webAddr = string.Format("{0}{1}", _sidcAPIServiceSettings.BaseUrl, _sidcAPIServiceSettings.ColaStubBaseUrl);
 
                 // Create the request
                 WebRequest request = WebRequest.Create(webAddr);

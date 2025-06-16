@@ -34,6 +34,7 @@ namespace Sofos2ToDatawarehouse.Extractor.CancelChargeAmount
                     Console.WriteLine(e.Message);
                 }
                 Thread.Sleep(3000);
+                System.Environment.Exit(1);
 
             }
         }

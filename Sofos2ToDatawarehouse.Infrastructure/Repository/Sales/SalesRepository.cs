@@ -1,4 +1,5 @@
-﻿using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
+﻿using MySqlConnector;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Domain.Entity.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.DbContext;
@@ -6,6 +7,7 @@ using Sofos2ToDatawarehouse.Infrastructure.Queries.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -189,6 +191,48 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
         }
 
         //public void MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        //public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
+        //{
+        //    if (colaTransactions == null || !colaTransactions.Any())
+        //        return;
+
+        //    foreach (var transaction in colaTransactions)
+        //    {
+        //        try
+        //        {
+        //            // Update header
+        //            var headerParam = new Dictionary<string, object>
+        //            {
+        //                { "@transNum", transaction.TransNum }
+        //            };
+
+        //            using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
+        //            {
+        //                conn.ExecuteMySQL();
+        //            }
+
+        //            // Update each detail
+        //            foreach (var detail in transaction.ColaTransactionDetail)
+        //            {
+        //                var detailParam = new Dictionary<string, object>
+        //                {
+        //                    { "@detailNum", detail.DetailNum }
+        //                };
+
+        //                using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
+        //                {
+        //                    conn.ExecuteMySQL();
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            // Handle/log the exception as needed
+        //            throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
+        //        }
+        //    }
+        //}
+
         public async Task MarkColaAsInserted(List<CreateColaTransactionCommand> colaTransactions)
         {
             if (colaTransactions == null || !colaTransactions.Any())
@@ -196,40 +240,47 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
 
             foreach (var transaction in colaTransactions)
             {
+                var conn = new MySqlConnection(_dbSource);
+                await conn.OpenAsync();
+
+                var trx = await conn.BeginTransactionAsync(IsolationLevel.Serializable);
                 try
                 {
-                    // Update header
-                    var headerParam = new Dictionary<string, object>
+                    // --- Update HEADER ---
+                    var headerQuery = ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader);
+                    using (var headerCmd = new MySqlCommand(headerQuery, conn, (MySqlTransaction)trx))
                     {
-                        { "@transNum", transaction.TransNum }
-                    };
-
-                    using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaHeader), headerParam))
-                    {
-                        conn.ExecuteMySQL();
+                        headerCmd.Parameters.AddWithValue("@transNum", transaction.TransNum);
+                        await headerCmd.ExecuteNonQueryAsync();
                     }
 
-                    // Update each detail
+                    // --- Update DETAILS ---
                     foreach (var detail in transaction.ColaTransactionDetail)
                     {
-                        var detailParam = new Dictionary<string, object>
+                        var detailQuery = ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail);
+                        using (var detailCmd = new MySqlCommand(detailQuery, conn, (MySqlTransaction)trx))
                         {
-                            { "@detailNum", detail.DetailNum }
-                        };
-
-                        using (var conn = new ApplicationContext(_dbSource, ColaTransactionQuery.UpdateColaQuery(ColaTransactionEnum.UpdateColaDetail), detailParam))
-                        {
-                            conn.ExecuteMySQL();
+                            detailCmd.Parameters.AddWithValue("@transNum", transaction.TransNum);
+                            await detailCmd.ExecuteNonQueryAsync();
                         }
                     }
+
+                    await trx.CommitAsync();
                 }
                 catch (Exception ex)
                 {
-                    // Handle/log the exception as needed
+                    await trx.RollbackAsync();
                     throw new Exception($"Failed to update isInsert flag for transaction {transaction.TransNum}: {ex.Message}", ex);
+                }
+                finally
+                {
+                    await conn.CloseAsync();
+                    conn.Dispose();
                 }
             }
         }
+
+
 
 
 

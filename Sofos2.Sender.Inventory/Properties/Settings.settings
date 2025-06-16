@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="BASE_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
+      <Value Profile="(Default)">http://161.49.105.231:7557/spork_api_staging/api/</Value>
     </Setting>
     <Setting Name="API_COLA_URL" Type="System.String" Scope="User">
       <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
@@ -14,11 +14,11 @@
     <Setting Name="DROPSITE_FOLDER" Type="System.String" Scope="User">
       <Value Profile="(Default)">D:\DatawarehouseSyncher\Dropsite</Value>
     </Setting>
-    <Setting Name="API_INVENTORY_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
-    </Setting>
     <Setting Name="API_TOKEN" Type="System.String" Scope="User">
       <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
+    </Setting>
+    <Setting Name="API_INVENTORY_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_upd_iip_dw.php</Value>
     </Setting>
   </Settings>
 </SettingsFile>

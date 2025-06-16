@@ -34,6 +34,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Accounting
                     Console.WriteLine("No available data",e.Message);
                 }
                 Thread.Sleep(3000);
+                System.Environment.Exit(1);
 
             }
         }

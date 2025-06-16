@@ -33,7 +33,8 @@ namespace SOFOS2.Sender.Sales
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(100000);
+                Thread.Sleep(3000);
+                System.Environment.Exit(1);
             }
 
 

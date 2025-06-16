@@ -74,9 +74,10 @@ namespace SOFOS2.Sender.Sales.Controller
                     {
                         if (responseSendBulkUpsert.Succeeded)
                         {
+                            await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
                             Console.WriteLine("Sending COLA transactions. . .");
                             await _colaTransactionService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaTransactionBase, extractedFile.Name));
-                            await _processLogsService.ColaTransactionLogsServiceRequestAsync(colaTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            //await _processLogsService.ColaTransactionLogsServiceRequestAsync(colaTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
 
                             //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest);
                             //_salesRepository = new SalesRepository();

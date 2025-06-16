@@ -114,7 +114,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Sales
             return sQuery;
         }
 
-        public static StringBuilder UpdateColaQuery(ColaTransactionEnum process)
+        public static string UpdateColaQuery(ColaTransactionEnum process)
         {
             var sQuery = new StringBuilder();
 
@@ -129,7 +129,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Sales
 
                 case ColaTransactionEnum.UpdateColaDetail:
 
-                    sQuery.Append(@"UPDATE sapt1 SET isInsert=1 WHERE detailNum=@detailNum");
+                    sQuery.Append(@"UPDATE sapt1 SET isInsert=1 WHERE transNum=@transNum");
                     break;
 
 
@@ -137,7 +137,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Sales
                     break;
             }
 
-            return sQuery;
+            return sQuery.ToString();
         }
 
         public enum ColaTransactionEnum

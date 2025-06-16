@@ -66,7 +66,7 @@ namespace Sofos2.Sender.Inventory.Controller
                         {
                             Console.WriteLine("Sending Charge Amount transactions. . .");
                             await _inventoryService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredItemsBase, extractedFile.Name));
-                            await _processLogsService.ItemsLogsServiceRequestAsync(itemsBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            //await _processLogsService.ItemsLogsServiceRequestAsync(itemsBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                         }
                     }
                     catch (Exception ex)

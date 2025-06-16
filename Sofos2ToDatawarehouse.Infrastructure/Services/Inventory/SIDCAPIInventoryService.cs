@@ -32,7 +32,9 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.Inventory
 
                 WebRequest request = WebRequest.Create(webAddr);
 
-                token = _sidcAPIServiceSettings.APIToken;
+
+                var apitoken = _sidcAPIServiceSettings.APIToken;
+                request.Headers.Add("Authorization", "Bearer " + apitoken);
 
                 request.Method = "POST";
                 string postData = JsonConvert.SerializeObject(sidcTokenRequest);

@@ -33,7 +33,8 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales
                 {
                     Console.WriteLine(e.Message);
                 }
-                Thread.Sleep(10000);
+                Thread.Sleep(3000);
+                System.Environment.Exit(1);
             }
 
         }
