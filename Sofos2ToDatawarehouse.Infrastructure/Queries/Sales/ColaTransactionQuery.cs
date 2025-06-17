@@ -111,6 +111,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Sales
                     break;
             }
 
+            
             return sQuery;
         }
 

@@ -114,7 +114,7 @@ namespace Sofos2.Sender.Inventory.Controller
         {
             var _sidcLogsServiceApiSettings = new SIDCLogsServiceApiSettings();
             _sidcLogsServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
-            _sidcLogsServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
+            //_sidcLogsServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
             //_sidcLogsServiceApiSettings.IdentityUrl = Properties.Settings.Default.API_IDENTITY_BASE_URL;
             //_sidcLogsServiceApiSettings.BaseUrl = Properties.Settings.Default.API_LOGS_BASE_URL;
             //_sidcLogsServiceApiSettings.AuthTokenUrl = Properties.Settings.Default.API_AUTH_TOKEN_URL;

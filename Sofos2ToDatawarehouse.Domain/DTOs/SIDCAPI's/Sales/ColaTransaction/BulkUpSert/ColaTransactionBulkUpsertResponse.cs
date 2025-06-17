@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert
 {
-    public class ColaTransactionBulkUpsertResponse : SIDCBaseResponse
+    public class ColaTransactionBulkUpsertResponse 
     {
         public ApiResponse response { get; set; }
 

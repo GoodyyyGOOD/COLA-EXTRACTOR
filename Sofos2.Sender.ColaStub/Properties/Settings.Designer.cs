@@ -61,18 +61,6 @@ namespace Sofos2.Sender.ColaStub.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_COLASTUB_URL {
-            get {
-                return ((string)(this["API_COLASTUB_URL"]));
-            }
-            set {
-                this["API_COLASTUB_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
         public string API_TOKEN {
             get {
@@ -80,6 +68,18 @@ namespace Sofos2.Sender.ColaStub.Properties {
             }
             set {
                 this["API_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_stub_dw.php")]
+        public string API_COLASTUB_URL {
+            get {
+                return ((string)(this["API_COLASTUB_URL"]));
+            }
+            set {
+                this["API_COLASTUB_URL"] = value;
             }
         }
     }

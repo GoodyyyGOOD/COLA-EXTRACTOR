@@ -65,7 +65,7 @@ namespace Sofos2.Sender.ColaStub.Controller
                         {
                             Console.WriteLine("Sending colastub transactions. . .");
                             await _colaStubService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaStubBase, extractedFile.Name));
-                            await _processLogsService.ColaStubLogsServiceRequestAsync(colaStubBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            //await _processLogsService.ColaStubLogsServiceRequestAsync(colaStubBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                         }
                     }
                     catch (Exception ex)
@@ -140,17 +140,17 @@ namespace Sofos2.Sender.ColaStub.Controller
 
         private SIDCAPIServiceSettings SetSIDCAPIServiceSettings()
         {
-            var _sidcServiceApiSettings = new SIDCAPIServiceSettings();
-            _sidcServiceApiSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
-            _sidcServiceApiSettings.ColaStubBaseUrl = Properties.Settings.Default.API_COLASTUB_URL;
-            _sidcServiceApiSettings.APIToken = Properties.Settings.Default.API_TOKEN;
+            var _sidcApiServiceSettings = new SIDCAPIServiceSettings();
+            _sidcApiServiceSettings.BaseUrl = Properties.Settings.Default.BASE_URL;
+            _sidcApiServiceSettings.ColaStubBaseUrl = Properties.Settings.Default.API_COLASTUB_URL;
+            _sidcApiServiceSettings.APIToken = Properties.Settings.Default.API_TOKEN;
             //_sidcServiceApiSettings.IdentityUrl = Properties.Settings.Default.API_IDENTITY_BASE_URL;
             //_sidcServiceApiSettings.ColaStubBaseUrl = Properties.Settings.Default.API_colaStub_BASE_URL;
             //_sidcServiceApiSettings.AuthTokenUrl = Properties.Settings.Default.API_AUTH_TOKEN_URL;
             //_sidcServiceApiSettings.AuthUser = Properties.Settings.Default.API_AUTH_USERNAME;
             //_sidcServiceApiSettings.AuthPassword = PasswordDecode(Properties.Settings.Default.API_AUTH_PASSWORD);
 
-            return _sidcServiceApiSettings;
+            return _sidcApiServiceSettings;
         }
 
         private string PasswordDecode(string passwordEncoded)

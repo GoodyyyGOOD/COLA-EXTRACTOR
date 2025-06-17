@@ -37,18 +37,6 @@ namespace Sofos2.Sender.Inventory.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_COLA_URL {
-            get {
-                return ((string)(this["API_COLA_URL"]));
-            }
-            set {
-                this["API_COLA_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SIDC-1-2-1-3")]
         public string BRANCH_CODE {
             get {
