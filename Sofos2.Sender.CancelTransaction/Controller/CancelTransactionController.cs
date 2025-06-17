@@ -65,7 +65,7 @@ namespace Sofos2.Sender.CancelTransaction.Controller
                         {
                             Console.WriteLine("Sending CancelTransaction transactions. . .");
                             await _cancelTransactionService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredCancelTransactionBase, extractedFile.Name));
-                            await _processLogsService.CancelTransactionLogsServiceRequestAsync(cancelTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            //await _processLogsService.CancelTransactionLogsServiceRequestAsync(cancelTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                         }
                     }
                     catch (Exception ex)

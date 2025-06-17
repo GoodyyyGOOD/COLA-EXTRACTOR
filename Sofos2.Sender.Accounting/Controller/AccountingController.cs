@@ -65,7 +65,7 @@ namespace Sofos2.Sender.Accounting.Controller
                             {
                                 Console.WriteLine("Sending Charge Amount transactions. . .");
                                 await _accountingService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredChargeAmountBase, extractedFile.Name));
-                                await _processLogsService.ChargeAmountLogsServiceRequestAsync(chargeAmountBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                                //await _processLogsService.ChargeAmountLogsServiceRequestAsync(chargeAmountBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                             }
                         }
                         catch (Exception ex)
