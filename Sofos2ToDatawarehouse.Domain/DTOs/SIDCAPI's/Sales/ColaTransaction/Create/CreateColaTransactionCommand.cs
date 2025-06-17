@@ -14,7 +14,7 @@ namespace Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Crea
         public string Reference { get; set; }
         public string CrossReference { get; set; }
         public int IsNoEffectOnInventory { get; set; }
-        public int CustomerType { get; set; }
+        public string CustomerType { get; set; }
         public string MemberId { get; set; }
         public string MemberName { get; set; }
         public string EmployeeId { get; set; }
