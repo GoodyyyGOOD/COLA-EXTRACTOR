@@ -64,7 +64,7 @@ namespace Sofos2.Sender.CancelChargeAmount.Controller
                         {
                             Console.WriteLine("Sending Charge Amount transactions. . .");
                             await _cancelChargeAmountService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredCancelChargeAmountBase, extractedFile.Name));
-                            await _processLogsService.CancelChargeAmountLogsServiceRequestAsync(cancelChargeAmountBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
+                            //await _processLogsService.CancelChargeAmountLogsServiceRequestAsync(cancelChargeAmountBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
                         }
                     }
                     catch (Exception ex)
