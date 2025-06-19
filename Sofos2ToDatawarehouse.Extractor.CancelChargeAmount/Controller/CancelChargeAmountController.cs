@@ -46,7 +46,7 @@ namespace Sofos2ToDatawarehouse.Extractor.CancelChargeAmount.Controller
 
                 if (cancelChargeAmountHeader != null)
                 {
-                    _cancelChargeAmountLogRepository.ExportToJSONFile(cancelChargeAmountHeader, _module, _cancelChargeAmountRepository._company.BranchCode, dropSitePathExtractedCancelChargeAmountBase, dropSitePathLogsCancelChargeAmountBase);
+                    //_cancelChargeAmountLogRepository.ExportToJSONFile(cancelChargeAmountHeader, _module, _cancelChargeAmountRepository._company.BranchCode, dropSitePathExtractedCancelChargeAmountBase, dropSitePathLogsCancelChargeAmountBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else

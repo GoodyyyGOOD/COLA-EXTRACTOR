@@ -2,12 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sofos2.Sender.Accounting.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="BASE_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
-    </Setting>
-    <Setting Name="API_ACCOUNTING_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
-    </Setting>
     <Setting Name="BRANCH_CODE" Type="System.String" Scope="User">
       <Value Profile="(Default)">SIDC-1-2-1-3</Value>
     </Setting>
@@ -16,6 +10,12 @@
     </Setting>
     <Setting Name="API_TOKEN" Type="System.String" Scope="User">
       <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
+    </Setting>
+    <Setting Name="BASE_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://161.49.105.231:7557/spork_api_staging/api/</Value>
+    </Setting>
+    <Setting Name="API_ACCOUNTING_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_upd_ca_dw.php</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SOFOS2.Sender.Sales.Properties {
+namespace Sofos2.Sender.ColaTransactionSender.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,13 +25,13 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_COLA_URL {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/spork-api/api/")]
+        public string BASE_URL {
             get {
-                return ((string)(this["API_COLA_URL"]));
+                return ((string)(this["BASE_URL"]));
             }
             set {
-                this["API_COLA_URL"] = value;
+                this["BASE_URL"] = value;
             }
         }
         
@@ -73,6 +73,66 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_ca_cncl_dw.php")]
+        public string API_CANCELCHARGEAMOUNT_URL {
+            get {
+                return ((string)(this["API_CANCELCHARGEAMOUNT_URL"]));
+            }
+            set {
+                this["API_CANCELCHARGEAMOUNT_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_ctrans_dw.php")]
+        public string API_CANCELTRANSACTION_URL {
+            get {
+                return ((string)(this["API_CANCELTRANSACTION_URL"]));
+            }
+            set {
+                this["API_CANCELTRANSACTION_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_stub_dw.php")]
+        public string API_COLASTUB_URL {
+            get {
+                return ((string)(this["API_COLASTUB_URL"]));
+            }
+            set {
+                this["API_COLASTUB_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
+        public string API_COLA_URL {
+            get {
+                return ((string)(this["API_COLA_URL"]));
+            }
+            set {
+                this["API_COLA_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        public string HOST {
+            get {
+                return ((string)(this["HOST"]));
+            }
+            set {
+                this["HOST"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("root")]
         public string DB_USERNAME {
             get {
@@ -109,25 +169,13 @@ namespace SOFOS2.Sender.Sales.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://161.49.105.231:7557/spork_api_staging/api/")]
-        public string BASE_URL {
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
+        public string API_ACCOUNTING_URL {
             get {
-                return ((string)(this["BASE_URL"]));
+                return ((string)(this["API_ACCOUNTING_URL"]));
             }
             set {
-                this["BASE_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.160.39")]
-        public string HOST {
-            get {
-                return ((string)(this["HOST"]));
-            }
-            set {
-                this["HOST"] = value;
+                this["API_ACCOUNTING_URL"] = value;
             }
         }
     }

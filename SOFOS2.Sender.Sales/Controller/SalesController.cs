@@ -1,10 +1,6 @@
 ﻿using Sofos2ToDatawarehouse.Domain.DTOs;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
-using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.Create;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
-using Sofos2ToDatawarehouse.Infrastructure.DbContext;
-using Sofos2ToDatawarehouse.Infrastructure.Helper;
-using Sofos2ToDatawarehouse.Infrastructure.Queries.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Services.LogsEntity;
@@ -15,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Sofos2ToDatawarehouse.Infrastructure.Queries.Sales.ColaTransactionQuery;
 
 namespace SOFOS2.Sender.Sales.Controller
 {

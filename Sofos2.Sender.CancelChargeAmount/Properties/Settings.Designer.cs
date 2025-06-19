@@ -25,30 +25,6 @@ namespace Sofos2.Sender.CancelChargeAmount.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/spork-api/api/")]
-        public string BASE_URL {
-            get {
-                return ((string)(this["BASE_URL"]));
-            }
-            set {
-                this["BASE_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_CANCELCHARGEAMOUNT_URL {
-            get {
-                return ((string)(this["API_CANCELCHARGEAMOUNT_URL"]));
-            }
-            set {
-                this["API_CANCELCHARGEAMOUNT_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SIDC-1-2-1-3")]
         public string BRANCH_CODE {
             get {
@@ -80,6 +56,30 @@ namespace Sofos2.Sender.CancelChargeAmount.Properties {
             }
             set {
                 this["API_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://161.49.105.231:7557/spork_api_staging/api/")]
+        public string BASE_URL {
+            get {
+                return ((string)(this["BASE_URL"]));
+            }
+            set {
+                this["BASE_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_ca_cncl_dw.php")]
+        public string API_CANCELCHARGEAMOUNT_URL {
+            get {
+                return ((string)(this["API_CANCELCHARGEAMOUNT_URL"]));
+            }
+            set {
+                this["API_CANCELCHARGEAMOUNT_URL"] = value;
             }
         }
     }

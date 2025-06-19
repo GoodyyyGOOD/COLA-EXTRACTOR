@@ -27,7 +27,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.CancelTransaction
 
         #region GET
 
-        public List<CancelTransactions> GetCancelTransactionData(int maxFetchLimit, int startAtTransnum)
+        public async Task<List<CancelTransactions>> GetCancelTransactionData(int maxFetchLimit, int startAtTransnum)
         {
             var CancelTransaction = GetCancelTransaction(startAtTransnum, maxFetchLimit);
 

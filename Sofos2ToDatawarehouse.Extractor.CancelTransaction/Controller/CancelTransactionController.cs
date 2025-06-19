@@ -46,7 +46,7 @@ namespace Sofos2ToDatawarehouse.Extractor.CancelTransaction.Controller
 
                 if (CancelTransactionTransaction != null)
                 {
-                    _cancelTransactionLogRepository.ExportToJSONFile(CancelTransactionTransaction, _module, _cancelTransactionRepository._company.BranchCode, dropSitePathExtractedCancelTransactionBase, dropSitePathLogsCancelTransactionBase);
+                    //_cancelTransactionLogRepository.ExportToJSONFile(CancelTransactionTransaction, _module, _cancelTransactionRepository._company.BranchCode, dropSitePathExtractedCancelTransactionBase, dropSitePathLogsCancelTransactionBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else

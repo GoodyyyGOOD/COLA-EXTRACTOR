@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Sofos2.Sender.ColaTransactionSender.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BASE_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
+    </Setting>
+    <Setting Name="BRANCH_CODE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SIDC-1-2-1-3</Value>
+    </Setting>
+    <Setting Name="DROPSITE_FOLDER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\DatawarehouseSyncher\Dropsite</Value>
+    </Setting>
+    <Setting Name="API_TOKEN" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
+    </Setting>
+    <Setting Name="API_CANCELCHARGEAMOUNT_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_upd_ca_cncl_dw.php</Value>
+    </Setting>
+    <Setting Name="API_CANCELTRANSACTION_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_upd_ctrans_dw.php</Value>
+    </Setting>
+    <Setting Name="API_COLASTUB_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_upd_stub_dw.php</Value>
+    </Setting>
+    <Setting Name="API_COLA_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
+    </Setting>
+    <Setting Name="HOST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="DB_USERNAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="DB_PASSWORD" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c3VwZXJ2aXNvcg==</Value>
+    </Setting>
+    <Setting Name="DB_NAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">main</Value>
+    </Setting>
+    <Setting Name="API_ACCOUNTING_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pos_ins_ctrans_dw.php</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

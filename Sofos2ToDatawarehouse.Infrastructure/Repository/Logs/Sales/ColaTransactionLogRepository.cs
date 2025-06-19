@@ -13,7 +13,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales
 {
     public class ColaTransactionLogRepository
     {
-        public void ExportToJSONFile(List<ColaTransaction> colaTransactionHeader, string transType, string branchCode, string dropSitePathExtractedBase, string dropSitePathLog)
+        public async Task ExportToJSONFile(List<ColaTransaction> colaTransactionHeader, string transType, string branchCode, string dropSitePathExtractedBase, string dropSitePathLog)
         {
             int firstIdLedger = colaTransactionHeader.Min(o => o.TransNum);
             int lastIdLedger = colaTransactionHeader.Max(o => o.TransNum);
@@ -31,11 +31,11 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales
                 serializer.Serialize(file, colaTransactionHeader);
             }
 
-            LogActivity(firstIdLedger, lastIdLedger, transactionCount, fileName, transType, filePathLog, branchCode);
-            AppSettingHelper.SetSetting("lastIdLedgerLogSales", lastIdLedger.ToString());
+            await LogActivity(firstIdLedger, lastIdLedger, transactionCount, fileName, transType, filePathLog, branchCode);
+            AppSettingHelper.SetSetting("lastTransnumLogColaTransaction", lastIdLedger.ToString());
         }
 
-        private void LogActivity(int firstIdLedger, int lastIdLedger, int transactionCount, string fileName, string transType, string filePathLog, string branchCode)
+        private async Task LogActivity(int firstIdLedger, int lastIdLedger, int transactionCount, string fileName, string transType, string filePathLog, string branchCode)
         {
             LoggerModel log = new LoggerModel();
             log.Transactiontype = transType;
@@ -46,10 +46,10 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales
             log.CreatedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             log.FilePath = filePathLog;
             log.BranchCode = branchCode;
-            CreateLog(log);
+            await CreateLog(log);
         }
 
-        public void CreateLog(LoggerModel log)
+        public async Task CreateLog(LoggerModel log)
         {
             string baseFileName = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMdd_HHmmss"), log.BranchCode);
             string fileName = string.Format("{0}_Start_{1}_Last_{2}_Total{3}.txt", baseFileName, log.FirstIdLedger, log.LastIdLedger, log.TransactionCount);

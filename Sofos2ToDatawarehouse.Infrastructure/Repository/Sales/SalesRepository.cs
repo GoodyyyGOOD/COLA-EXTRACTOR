@@ -31,7 +31,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.Sales
 
         #region GET
 
-        public List<ColaTransaction> GetColaData(int maxFetchLimit, int startAtLedgerId)
+        public async Task<List<ColaTransaction>> GetColaData(int maxFetchLimit, int startAtLedgerId)
         {
             var colaHeader = GetColaHeader(startAtLedgerId, maxFetchLimit);
 

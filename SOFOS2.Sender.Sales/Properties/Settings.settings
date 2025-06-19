@@ -14,12 +14,6 @@
     <Setting Name="API_TOKEN" Type="System.String" Scope="User">
       <Value Profile="(Default)">SIDCCOLA98XRT4MZ7YQK</Value>
     </Setting>
-    <Setting Name="BASE_URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/spork-api/api/</Value>
-    </Setting>
-    <Setting Name="HOST" Type="System.String" Scope="User">
-      <Value Profile="(Default)">127.0.0.1</Value>
-    </Setting>
     <Setting Name="DB_USERNAME" Type="System.String" Scope="User">
       <Value Profile="(Default)">root</Value>
     </Setting>
@@ -28,6 +22,12 @@
     </Setting>
     <Setting Name="DB_NAME" Type="System.String" Scope="User">
       <Value Profile="(Default)">main</Value>
+    </Setting>
+    <Setting Name="BASE_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://161.49.105.231:7557/spork_api_staging/api/</Value>
+    </Setting>
+    <Setting Name="HOST" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.160.39</Value>
     </Setting>
   </Settings>
 </SettingsFile>

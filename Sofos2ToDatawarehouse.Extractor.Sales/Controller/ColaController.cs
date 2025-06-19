@@ -47,7 +47,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Sales.Controller
 
                 if (salesHeader != null)
                 {
-                    _colaTransactionLogRepository.ExportToJSONFile(salesHeader, _module, _salesRepository._company.BranchCode, dropSitePathExtractedSalesBase, dropSitePathLogsSalesBase);
+                    //_colaTransactionLogRepository.ExportToJSONFile(salesHeader, _module, _salesRepository._company.BranchCode, dropSitePathExtractedSalesBase, dropSitePathLogsSalesBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else

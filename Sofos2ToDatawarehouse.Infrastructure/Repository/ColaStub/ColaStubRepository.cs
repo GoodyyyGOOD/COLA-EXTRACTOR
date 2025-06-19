@@ -27,7 +27,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub
 
         #region GET
 
-        public List<ColaStubTransaction> GetColaStubData(int maxFetchLimit, int startAtTransnum)
+        public async Task<List<ColaStubTransaction>> GetColaStubData(int maxFetchLimit, int startAtTransnum)
         {
             var colaStub = GetColaStub(startAtTransnum, maxFetchLimit);
 

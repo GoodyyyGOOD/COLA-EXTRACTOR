@@ -16,7 +16,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Helper
 
         public static void SetSetting(string key, string value)
         {
-            Configuration configuration =
+            Configuration configuration = 
                 ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             configuration.AppSettings.Settings[key].Value = value;
             configuration.Save();

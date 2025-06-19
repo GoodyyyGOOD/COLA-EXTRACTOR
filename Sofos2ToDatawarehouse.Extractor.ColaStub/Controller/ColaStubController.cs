@@ -47,7 +47,7 @@ namespace Sofos2ToDatawarehouse.Extractor.ColaStub.Controller
 
                 if (colaStubTransaction != null)
                 {
-                    _colaStubLogRepository.ExportToJSONFile(colaStubTransaction, _module, _colaStubRepository._company.BranchCode, dropSitePathExtractedColaStubBase, dropSitePathLogsColaStubBase);
+                   // _colaStubLogRepository.ExportToJSONFile(colaStubTransaction, _module, _colaStubRepository._company.BranchCode, dropSitePathExtractedColaStubBase, dropSitePathLogsColaStubBase);
                     System.Console.WriteLine("All files have been extracted successfully.");
                 }
                 else

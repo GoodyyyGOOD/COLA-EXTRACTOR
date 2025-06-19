@@ -25,18 +25,6 @@ namespace Sofos2.Sender.CancelTransaction.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/spork-api/api/")]
-        public string BASE_URL {
-            get {
-                return ((string)(this["BASE_URL"]));
-            }
-            set {
-                this["BASE_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SIDC-1-2-1-3")]
         public string BRANCH_CODE {
             get {
@@ -61,18 +49,6 @@ namespace Sofos2.Sender.CancelTransaction.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pos_ins_ctrans_dw.php")]
-        public string API_CANCELTRANSACTION_URL {
-            get {
-                return ((string)(this["API_CANCELTRANSACTION_URL"]));
-            }
-            set {
-                this["API_CANCELTRANSACTION_URL"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("SIDCCOLA98XRT4MZ7YQK")]
         public string API_TOKEN {
             get {
@@ -80,6 +56,30 @@ namespace Sofos2.Sender.CancelTransaction.Properties {
             }
             set {
                 this["API_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://161.49.105.231:7557/spork_api_staging/api/")]
+        public string BASE_URL {
+            get {
+                return ((string)(this["BASE_URL"]));
+            }
+            set {
+                this["BASE_URL"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pos_upd_ctrans_dw.php")]
+        public string API_CANCELTRANSACTION_URL {
+            get {
+                return ((string)(this["API_CANCELTRANSACTION_URL"]));
+            }
+            set {
+                this["API_CANCELTRANSACTION_URL"] = value;
             }
         }
     }

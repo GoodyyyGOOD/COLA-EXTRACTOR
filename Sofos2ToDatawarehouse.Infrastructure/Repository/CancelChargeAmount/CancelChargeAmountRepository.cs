@@ -1,9 +1,7 @@
 ﻿using Sofos2ToDatawarehouse.Domain.Entity.Accounting;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
-using Sofos2ToDatawarehouse.Domain.Entity.Inventory;
 using Sofos2ToDatawarehouse.Infrastructure.DbContext;
 using Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount;
-using Sofos2ToDatawarehouse.Infrastructure.Queries.Inventory;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using System;
 using System.Collections.Generic;
@@ -11,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount.CancelChargeAmountQuery;
-using static Sofos2ToDatawarehouse.Infrastructure.Queries.Inventory.ItemQuery;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Repository.CancelChargeAmount
 {
@@ -30,7 +27,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.CancelChargeAmount
 
         #region GET
 
-        public List<AccountDetails> GetCancelChargeAmountData(int maxFetchLimit, int startAtTransnum)
+        public async Task<List<AccountDetails>> GetCancelChargeAmountData(int maxFetchLimit, int startAtTransnum)
         {
             var CancelChargeAmountHeader = GetCancelChargeAmountHeader(startAtTransnum, maxFetchLimit);
 

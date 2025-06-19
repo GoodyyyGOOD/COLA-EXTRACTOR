@@ -27,7 +27,6 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
                                     a.creditlimit,
                                     a.chargeAmount,
                                     a.colaid
-            
                                     FROM acl00 a inner join sapt0 b on a.memberId = b.employeeID and a.colaID = b.colaID and a.transType=b.transType
                                     WHERE 
                                     b.transnum >= (@lastTransnum + 1)
@@ -35,7 +34,7 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.Accounting
                                     AND a.creditlimit != 0 
                                     AND a.colaid != 0
                                     AND NOT b.cancelled
-                                    AND date(b.transdate)=('{dateToUse:yyyy-MM-dd}');
+                                    AND date(b.transdate)=('{dateToUse:yyyy-MM-dd}')
                                     #AND date(b.transdate)=('2024-01-25') 
                                     ORDER BY b.transnum ASC LIMIT @limitTransaction;
                                     ");

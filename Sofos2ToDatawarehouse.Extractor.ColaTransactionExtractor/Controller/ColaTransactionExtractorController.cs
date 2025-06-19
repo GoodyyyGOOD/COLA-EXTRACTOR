@@ -1,29 +1,28 @@
 ﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
-using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Accounting;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Sofos2ToDatawarehouse.Infrastructure.Helper;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.CancelChargeAmount;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.CancelChargeAmount;
-using System.Runtime.InteropServices;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.CancelTransaction;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.CancelTransaction;
-using System.Reflection;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Accounting;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.Logs.Accounting;
+using System.IO;
+using System.Reflection;
 
-
-namespace Sofos2ToDatawarehouse.Extractor.Accounting.Controller
+namespace Sofos2ToDatawarehouse.Extractor.ColaTransactionExtractor.Controller
 {
-    public class ChargeAmountController
+    public class ColaTransactionExtractorController
     {
         #region Private Declaration
 
@@ -36,15 +35,19 @@ namespace Sofos2ToDatawarehouse.Extractor.Accounting.Controller
         private string dropSitePathExtractedAccountingBase = string.Empty;
         private string dropSitePathTransferredAccountingBase = string.Empty;
         private string dropSitePathLogsAccountingBase = string.Empty;
+
         private string dropSitePathExtractedCancelChargeAmountBase = string.Empty;
         private string dropSitePathTransferredCancelChargeAmountBase = string.Empty;
         private string dropSitePathLogsCancelChargeAmountBase = string.Empty;
+
         private string dropSitePathExtractedColaStubBase = string.Empty;
         private string dropSitePathTransferredColaStubBase = string.Empty;
         private string dropSitePathLogsColaStubBase = string.Empty;
+
         private string dropSitePathExtractedCancelTransactionBase = string.Empty;
         private string dropSitePathTransferredCancelTransactionBase = string.Empty;
         private string dropSitePathLogsCancelTransactionBase = string.Empty;
+
         private string dropSitePathExtractedSalesBase = string.Empty;
         private string dropSitePathTransferredSalesBase = string.Empty;
         private string dropSitePathLogsSalesBase = string.Empty;
@@ -54,23 +57,26 @@ namespace Sofos2ToDatawarehouse.Extractor.Accounting.Controller
 
         private AccountingRepository _accountingRepository;
         private AccountingLogRepository _accountingLogRepository;
+
         private CancelChargeAmountRepository _cancelChargeAmountRepository;
         private CancelChargeAmountLogRepository _cancelChargeAmountLogRepository;
+
         private ColaStubRepository _colaStubRepository;
         private ColaStubLogRepository _colaStubLogRepository;
+
         private CancelTransactionRepository _cancelTransactionRepository;
         private CancelTransactionLogRepository _cancelTransactionLogRepository;
+
         private SalesRepository _salesRepository;
         private ColaTransactionLogRepository _colaTransactionLogRepository;
 
         #endregion Private Declaration
 
-        public ChargeAmountController()
+        public ColaTransactionExtractorController()
         {
-            InitilizeDropSiteAndAccountingRepositories();
+            InitilizeDropSiteAndColaTransactionExtractorRepositories();
             InitializeFolders();
         }
-
         #region Public Methods
         #region Cancel Charge Amount Extractor
         public async Task CancelChargeAmountExtraction()
@@ -301,7 +307,7 @@ namespace Sofos2ToDatawarehouse.Extractor.Accounting.Controller
 
 
 
-        private void InitilizeDropSiteAndAccountingRepositories()
+        private void InitilizeDropSiteAndColaTransactionExtractorRepositories()
         {
             _dropSiteModelRepository = new DropSiteModelRepository()
             {
