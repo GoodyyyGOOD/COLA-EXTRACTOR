@@ -60,6 +60,12 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
         private DropSiteModelRepository _dropSiteModelRepository;
         private string _branchCode = Properties.Settings.Default.BRANCH_CODE;
 
+        public ColaTransactionSenderController()
+        {
+            InitilizeDropSiteAndRepositories();
+            InitializeFolders();
+        }
+
         #region Cola Transaction
         public async Task SendingColaTransactionToAPIAsync()
         {
