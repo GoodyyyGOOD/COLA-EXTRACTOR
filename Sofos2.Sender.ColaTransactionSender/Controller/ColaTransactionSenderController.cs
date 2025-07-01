@@ -4,6 +4,7 @@ using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.BulkUp
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.CancelTransaction;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
@@ -49,8 +50,11 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
 
         private ColaTransactionService _colaTransactionService;
         private ColaStubService _colaStubService;
+
         private CancelTransactionService _cancelTransactionService;
+        private CancelTransactionRepository _cancelTransactionRepository;
         private CancelChargeAmountService _cancelChargeAmountService;
+
         private AccountingService _accountingService;
 
         private SalesRepository _salesRepository;
@@ -210,6 +214,7 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
                     {
                         if (responseSendBulkUpsert.Succeeded)
                         {
+                            await _cancelTransactionRepository.MarkColaAsExtracted(cancelTransactionBulkUpsertRequest.CreateCancelTransactionCommand);
                             Console.WriteLine("Sending CancelTransaction transactions. . .");
                             await _cancelTransactionService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredCancelTransactionBase, extractedFile.Name));
                             //await _processLogsService.CancelTransactionLogsServiceRequestAsync(cancelTransactionBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
