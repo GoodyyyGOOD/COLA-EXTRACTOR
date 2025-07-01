@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.Create;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.Sales.ColaTransactionQuery;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.ColaStub.ColaStubQuery;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Services.ColaStub
 {
@@ -111,6 +113,38 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Services.ColaStub
             }
 
             return colaStubBulkUpsertResponse;
+        }
+
+        public async Task UpdateIsInsertedBatchAsync(List<(ColaStubEnum Type, string ReferenceNumber)> updates)
+        {
+            if (updates == null || updates.Count == 0)
+                return;
+
+            var commandList = new List<(string Query, Dictionary<string, object> Parameters)>();
+
+            foreach (var (type, referenceNumber) in updates)
+            {
+                string query = UpdateColaQuery(type).ToString();
+                var param = new Dictionary<string, object>();
+
+                if (type == ColaStubEnum.UpdateColaHeader)
+                    param.Add("@transNum", referenceNumber);
+
+                commandList.Add((query, param));
+            }
+
+            //using (var context = new ApplicationContext(_dbSource))
+            //{
+            //    try
+            //    {
+            //        await context.ExecuteTransactionAsync(commandList); // You’ll need to implement this if it doesn't exist
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine($"Batch update failed: {ex.Message}");
+            //        // Optional: log or rethrow
+            //    }
+            //}
         }
 
         #region Deserialize

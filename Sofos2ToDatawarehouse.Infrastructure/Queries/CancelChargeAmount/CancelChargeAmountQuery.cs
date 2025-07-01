@@ -27,7 +27,6 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Queries.CancelChargeAmount
                                     a.creditlimit,
                                     a.chargeAmount,
                                     a.colaid
-            
                                     FROM acl00 a inner join sapt0 b on a.memberId = b.employeeID and a.colaID = b.colaID and a.transType=b.transType
                                     WHERE 
                                     b.transnum >= (@lastTransnum + 1)

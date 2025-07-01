@@ -4,6 +4,7 @@ using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.CancelTransaction.BulkUp
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaTransaction.BulkUpSert;
 using Sofos2ToDatawarehouse.Domain.Entity.General;
+using Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Services.Accounting;
@@ -53,6 +54,7 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
         private AccountingService _accountingService;
 
         private SalesRepository _salesRepository;
+        private ColaStubRepository _colaStubRepository;
 
         private SIDCAPILogsService _sidcAPILogsService;
         private ProcessLogsService _processLogsService;
@@ -103,7 +105,6 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
 
                             //await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest);
                             //_salesRepository = new SalesRepository();
-                            await _salesRepository.MarkColaAsInserted(colaTransactionBulkUpsertRequest.CreateColaTransactionCommand);
                         }
                     }
                     catch (Exception ex)
@@ -154,6 +155,7 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
                     {
                         if (responseSendBulkUpsert.Succeeded)
                         {
+                            await _colaStubRepository.MarkColaAsExtracted(colaStubBulkUpsertRequest.CreateColaStubCommand);
                             Console.WriteLine("Sending colastub transactions. . .");
                             await _colaStubService.MoveFileToTransferredAsync(extractedFile, Path.Combine(dropSitePathTransferredColaStubBase, extractedFile.Name));
                             //await _processLogsService.ColaStubLogsServiceRequestAsync(colaStubBulkUpsertRequest, _sidcAPILogsService, extractedFile.Name, _branchCode);
@@ -441,6 +443,7 @@ namespace Sofos2.Sender.ColaTransactionSender.Controller
                 }
             };
             _salesRepository = new SalesRepository(SetDBSource());
+            _colaStubRepository = new ColaStubRepository(SetDBSource());
             _colaTransactionService = new ColaTransactionService(SetSIDCAPIServiceSettings());
             _colaStubService = new ColaStubService(SetSIDCAPIServiceSettings());
             _cancelTransactionService = new CancelTransactionService(SetSIDCAPIServiceSettings());

@@ -1,14 +1,19 @@
-﻿using Sofos2ToDatawarehouse.Domain.Entity.General;
+﻿using MySqlConnector;
+using Sofos2ToDatawarehouse.Domain.DTOs.SIDCAPI_s.Sales.ColaStub.Create;
+using Sofos2ToDatawarehouse.Domain.Entity.General;
 using Sofos2ToDatawarehouse.Domain.Entity.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.DbContext;
 using Sofos2ToDatawarehouse.Infrastructure.Queries.ColaStub;
+using Sofos2ToDatawarehouse.Infrastructure.Queries.Sales;
 using Sofos2ToDatawarehouse.Infrastructure.Repository.General;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Sofos2ToDatawarehouse.Infrastructure.Queries.ColaStub.ColaStubQuery;
+using static Sofos2ToDatawarehouse.Infrastructure.Queries.Sales.ColaTransactionQuery;
 
 namespace Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub
 {
@@ -74,6 +79,50 @@ namespace Sofos2ToDatawarehouse.Infrastructure.Repository.ColaStub
             catch
             {
                 throw;
+            }
+        }
+
+        public async Task MarkColaAsExtracted(List<CreateColaStubCommand> colaStub)
+        {
+            if (colaStub == null || !colaStub.Any())
+                return;
+
+            foreach (var stub in colaStub)
+            {
+                var conn = new MySqlConnection(_dbSource);
+                await conn.OpenAsync();
+
+                var trx = await conn.BeginTransactionAsync(IsolationLevel.Serializable);
+                try
+                {
+ 
+                    var headerQuery = ColaStubQuery.UpdateColaQuery(ColaStubEnum.UpdateColaHeader);
+                    Console.WriteLine("Query: " + headerQuery);
+                    Console.WriteLine("TransNum: " + stub.Transnum);
+                    using (var headerCmd = new MySqlCommand(headerQuery, conn, (MySqlTransaction)trx))
+                    {
+                        Console.WriteLine(headerCmd.CommandText);
+                        foreach (MySqlParameter param in headerCmd.Parameters)
+                        {
+                            Console.WriteLine($"{param.ParameterName} = {param.Value}");
+                        }
+                        headerCmd.Parameters.AddWithValue("@transNum", stub.Transnum);
+                        await headerCmd.ExecuteNonQueryAsync();
+                    }
+
+                    await trx.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Exception: {ex}");
+                    await trx.RollbackAsync();
+                    throw new Exception($"Failed to update isInsert flag for transaction {stub.Transnum}: {ex.Message}", ex);
+                }
+                finally
+                {
+                    await conn.CloseAsync();
+                    conn.Dispose();
+                }
             }
         }
 
